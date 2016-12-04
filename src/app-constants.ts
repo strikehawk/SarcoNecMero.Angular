@@ -25,6 +25,14 @@
 			return this.CORE_MODULE_NAME + ".ops";
 		}
 
+		public static get PERS_MODULE_NAME(): string {
+			return this.CORE_MODULE_NAME + ".pers";
+		}
+
+		public static get CHRONO_MODULE_NAME(): string {
+			return this.CORE_MODULE_NAME + ".chrono";
+		}
+
 		public static get APP_INSTANCE(): string {
 			return "app-instance";
 		}

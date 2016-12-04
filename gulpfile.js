@@ -118,7 +118,7 @@ gulp.task("typescript", ["typescript:sources"]);
 gulp.task("min", ["min:css", "min:js", "typescript", "copy"]);
 
 gulp.task("build-dev", function(cb){
-    runSequence(["clean", "typescript", "copy"]);
+    runSequence(["typescript", "copy"]);
 
     cb();
 });

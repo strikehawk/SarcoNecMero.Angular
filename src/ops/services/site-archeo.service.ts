@@ -1,8 +1,7 @@
 ﻿/// <reference path="../../../typings/angular/angular.d.ts" />
-/// <reference path="../../../typings/angular/angular-resource.d.ts" />
 /// <reference path="../models/sarconecmero-ops.ts" />
 
-module adunware.snm.ops.services {
+module snm.ops.services {
 	export class SiteArcheoService implements ISiteArcheoService {
 		static $inject: string[] = ["$http"];
 
@@ -21,7 +20,7 @@ module adunware.snm.ops.services {
 
 		public getAll(): ISiteArcheo[] {
 			let result: ISiteArcheo[] = [];
-			this._map.forEach((site: ISiteArcheo) => { result.push(site); });
+			this._map.forEach((o: ISiteArcheo) => { result.push(o); });
 
 			return result;
 		}
@@ -44,7 +43,7 @@ module adunware.snm.ops.services {
 			this._promise = new Promise<Object>((resolve, reject) => {
 				resolveFunc = resolve;
 				rejectFunc = reject;
-			})
+			});
 
 			this.$http.get<ISiteArcheo[]>("api/ops/sites/summary")
 				.then((response) => {
@@ -60,8 +59,8 @@ module adunware.snm.ops.services {
 		}
 
 		private _parseArray(array: ISiteArcheo[]): void {
-			array.map((site: ISiteArcheo) => {
-				this._map.set(site.id, site);
+			array.map((o: ISiteArcheo) => {
+				this._map.set(o.id, o);
 			});
 		}
 	}

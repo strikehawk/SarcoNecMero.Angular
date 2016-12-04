@@ -3,6 +3,8 @@
 /// <reference path="components/components.ts" />
 /// <reference path="pages/pages.ts" />
 /// <reference path="services/services.ts" />
+/// <reference path="ops/ops.ts" />
+/// <reference path="pers/pers.ts" />
 
 class Bootstrap {
 	public static initialize(): void {
@@ -14,7 +16,9 @@ class Bootstrap {
 			adunware.snm.AppConstants.COMPONENTS_MODULE_NAME,
 			adunware.snm.AppConstants.PAGES_MODULE_NAME,
 			adunware.snm.AppConstants.SERVICES_MODULE_NAME,
-			adunware.snm.AppConstants.OPS_MODULE_NAME
+			adunware.snm.AppConstants.CHRONO_MODULE_NAME,
+			adunware.snm.AppConstants.OPS_MODULE_NAME,
+			adunware.snm.AppConstants.PERS_MODULE_NAME
 		])
 			.value(adunware.snm.AppConstants.APP_INSTANCE, new adunware.snm.App());
 	}
@@ -43,6 +47,10 @@ class Bootstrap {
 
 			.otherwise("/");
 	}
+
+	private static _initServices(): void {
+
+    }
 }
 
 Bootstrap.initialize();
