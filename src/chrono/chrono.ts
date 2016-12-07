@@ -4,10 +4,12 @@
 /// <reference path="./dal/phase-chronologique-set.ts" />
 
 module snm.chrono {
+    import DbContext = snm.services.dal.DbContext;
+
     angular.module(adunware.snm.AppConstants.CHRONO_MODULE_NAME, [
         "adunware.snm.services.dal.dbContext"
-    ]).run(["dbContext", (dbContext: snm.services.dal.DbContext) => {
-        dbContext.addRepository("Personne", (dbContext: snm.services.dal.DbContext, $http: ng.IHttpService) =>
+    ]).run(["dbContext", (dbContext: DbContext) => {
+        DbContext.addRepository("PhaseChronologique", (dbContext: DbContext, $http: ng.IHttpService) =>
             new snm.chrono.dal.PhaseChronologiqueSet(dbContext, $http));
     }]);
 }

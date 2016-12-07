@@ -8,19 +8,37 @@ module snm.services.dal {
     export class DbContext {
         static $inject: string[] = ["$http"];
 
-        private _map: Map<string, EntitySetFactory> = new Map<string, EntitySetFactory>();
+        private static _factories: Map<string, EntitySetFactory> = new Map<string, EntitySetFactory>();
+        private _repositories: Map<string, IEntitySet<any, any>> = new Map<string, IEntitySet<any, any>>();
 
         constructor(private $http: ng.IHttpService) {
-            let t = typeof DbContext;
         }
 
         public getRepository<TKey, TEntity extends IEntity<TKey>>(type: string): IEntitySet<TKey, TEntity> {
-            let result: IEntitySet<TKey, TEntity> = this._map.get(type)(this, this.$http);
+            if (!type) {
+                throw new Error("Type cannot be null.");
+            }
 
-            return <IEntitySet<TKey, TEntity>> result;
+            if (!DbContext._factories.has(type)) {
+                throw new Error("Unknown factory '" + type + "'");
+            }
+
+            if (this._repositories.has(type)) {
+                //Repository has already been instantiated. Return it.
+                return this._repositories.get(type);
+            } else {
+                //No existing repository. Create a new one.
+                let factory: EntitySetFactory = DbContext._factories.get(type);
+                let result: IEntitySet<TKey, TEntity> = factory(this, this.$http);
+
+                //Add new instance to repositories map
+                this._repositories.set(type, result);
+
+                return <IEntitySet<TKey, TEntity>> result;
+            }
         }
 
-        public addRepository(type: string, factory: EntitySetFactory): void {
+        public static addRepository(type: string, factory: EntitySetFactory): void {
             if (!type) {
                 throw new Error("Type cannot be empty.");
             }
@@ -29,10 +47,10 @@ module snm.services.dal {
                 throw new Error("Factory cannot be null.");
             }
 
-            this._map.set(type, factory);
+            DbContext._factories.set(type, factory);
         }
     }
 
     angular.module("adunware.snm.services.dal.dbContext", [])
-        .service("dbContext", ["$http", DbContext]);
+        .factory("dbContext", ["$http", ($http: ng.IHttpService) => new DbContext($http)]);
 }

@@ -11,6 +11,8 @@ module snm.services.dal {
             if (!dbContext) {
                 throw new Error("DbContext cannot be null.");
             }
+
+            this._dbContext = dbContext;
         }
 
         public abstract getKey(): TKey;

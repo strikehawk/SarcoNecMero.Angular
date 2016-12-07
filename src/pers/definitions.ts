@@ -17,14 +17,7 @@ declare module snm.pers {
         abreviation: string;
     }
 
-    export interface IPersonne extends snm.services.dal.IEntity<number> {
-        id: number;
-        prenom: string;
-        autresPrenoms: string;
-        nom: string;
-        suffixe: string;
-        nomComplet: string;
-        organismeId: number;
+    export interface IPersonne extends PersonneData, snm.services.dal.IEntity<number> {
         organisme: IOrganisme
     }
 

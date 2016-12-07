@@ -1,8 +1,8 @@
 ﻿<div>
     <ul>
         <li ng-repeat="site in vm.sites">
-            <span>{{site.localisation}}</span>
-            <span>{{site.debutOccupationId}} - {{site.finOccupationId}}</span>
+            <span>{{site.localisation}} ({{site.commune.nom}} - {{site.commune.code}})</span>
+            <div>{{site.debutOccupationId}} - {{site.finOccupationId}}</div>
         </li>
     </ul>
 </div>
