@@ -1,8 +1,12 @@
 ﻿<div>
     <ul>
         <li ng-repeat="site in vm.sites">
-            <span>{{site.localisation}} ({{site.commune.nom}} - {{site.commune.code}})</span>
-            <div>{{site.debutOccupationId}} - {{site.finOccupationId}}</div>
+            <span>{{site.localisation}} ({{site.commune.nom}} - {{site.commune.departement.numero}})</span>
+            <div><phases-chrono debut="site.debutOccupationId" fin="site.finOccupationId"></phases-chrono></div>
+            <div ng-repeat="op in site.operations">
+                <div>{{op.localisation}}</div>
+                <div><personne personne="op.responsable"></personne> <span ng-show="op.responsable && op.organisme">-</span> {{op.organisme}}</div>
+            </div>
         </li>
     </ul>
 </div>

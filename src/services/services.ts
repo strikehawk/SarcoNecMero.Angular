@@ -3,6 +3,6 @@
 
 module adunware.snm.services {
 	angular.module(adunware.snm.AppConstants.SERVICES_MODULE_NAME, [
-		"adunware.snm.services.dal.dbContext"
+		"snm.services.dal.dbContext"
 	]);
 }

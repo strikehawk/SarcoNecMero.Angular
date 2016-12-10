@@ -1,12 +1,15 @@
 /// <reference path="../definitions.ts" />
 /// <reference path="../../chrono/definitions.ts" />
+/// <reference path="../../pers/definitions.ts" />
 /// <reference path="../../services/dal/entity-base.ts" />
 /// <reference path="../../services/dal/db-context.ts" />
 
 module snm.ops {
     import IPhaseChronologique = snm.chrono.IPhaseChronologique;
+    import IPersonne = snm.pers.IPersonne;
+    import IOrganisme = snm.pers.IOrganisme;
 
-    export class SiteArcheo extends snm.services.dal.EntityBase<number> implements ISiteArcheo {
+    export class OperationArcheo extends snm.services.dal.EntityBase<number> implements IOperationArcheo {
 
         //region properties
         private _id: number;
@@ -17,6 +20,20 @@ module snm.ops {
 
         public set id(value: number) {
             this._id = value;
+        }
+
+        private _siteId: number;
+
+        public get siteId(): number {
+            return this._siteId;
+        }
+
+        public set siteId(value: number) {
+            this._siteId = value;
+        }
+
+        public get site(): ISiteArcheo {
+            return <ISiteArcheo> this._dbContext.getRepository("SiteArcheo").getByKey(this._siteId);
         }
 
         private _codeCommune: number;
@@ -63,9 +80,52 @@ module snm.ops {
             this._localisation = value;
         }
 
-        public get operations(): IOperationArcheo[] {
-            let repo: IOperationArcheoSet = <IOperationArcheoSet> this._dbContext.getRepository("OperationArcheo");
-            return repo.getBySiteId(this._id);
+        private _responsableId: number;
+
+        public get responsableId(): number {
+            return this._responsableId;
+        }
+
+        public set responsableId(value: number) {
+            this._responsableId = value;
+        }
+
+        public get responsable(): IPersonne {
+            return <IPersonne> this._dbContext.getRepository("Personne").getByKey(this._responsableId);
+        }
+
+        private _organismeId: number;
+
+        public get organismeId(): number {
+            return this._organismeId;
+        }
+
+        public set organismeId(value: number) {
+            this._organismeId = value;
+        }
+
+        public get organisme(): IOrganisme {
+            return <IOrganisme> this._dbContext.getRepository("Organisme").getByKey(this._organismeId);
+        }
+
+        private _debutTravaux: string;
+
+        public get debutTravaux(): string {
+            return this._debutTravaux;
+        }
+
+        public set debutTravaux(value: string) {
+            this._debutTravaux = value;
+        }
+
+        private _finTravaux: string;
+
+        public get finTravaux(): string {
+            return this._finTravaux;
+        }
+
+        public set finTravaux(value: string) {
+            this._finTravaux = value;
         }
 
         private _debutOccupationId: number;
@@ -116,15 +176,20 @@ module snm.ops {
 
         //endregion
 
-        constructor(dbContext: snm.services.dal.DbContext, data?: SiteArcheoData) {
+        constructor(dbContext: snm.services.dal.DbContext, data?: OperationArcheoData) {
             super(dbContext);
 
             if (data) {
                 this._id = data.id;
+                this._siteId = data.siteId;
                 this._codeCommune = data.codeCommune;
                 this._x = data.x;
                 this._y = data.y;
                 this._localisation = data.localisation;
+                this._responsableId = data.responsableId;
+                this._organismeId = data.organismeId;
+                this._debutTravaux = data.debutTravaux;
+                this._finTravaux = data.finTravaux;
                 this._debutOccupationId = data.debutOccupationId;
                 this._finOccupationId = data.finOccupationId;
                 this._planId = data.planId;

@@ -7,7 +7,8 @@ module snm.chrono {
     import DbContext = snm.services.dal.DbContext;
 
     angular.module(adunware.snm.AppConstants.CHRONO_MODULE_NAME, [
-        "adunware.snm.services.dal.dbContext"
+        "snm.services.dal.dbContext",
+        "snm.chrono.components.phases-chronologiques"
     ]).run(["dbContext", (dbContext: DbContext) => {
         DbContext.addRepository("PhaseChronologique", (dbContext: DbContext, $http: ng.IHttpService) =>
             new snm.chrono.dal.PhaseChronologiqueSet(dbContext, $http));

@@ -4,6 +4,7 @@
 
 module adunware.snm.pages {
 	angular.module(adunware.snm.AppConstants.PAGES_MODULE_NAME, [
-		"adunware.snm.pages.mainPage"
+		"snm.pages.layoutPage",
+		"snm.pages.mainPage"
 	]);
 }

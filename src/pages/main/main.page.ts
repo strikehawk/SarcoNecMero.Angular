@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../typings/angular/angular.d.ts" />
 
-module adunware.snm.pages {
+module snm.pages {
 	// controller
 	class MainController {
 		constructor() {
@@ -9,7 +9,9 @@ module adunware.snm.pages {
 	}
 
 	// component
-	angular.module("adunware.snm.pages.mainPage", ["ngRoute", "adunware.snm.ops.components.siteArcheoList"]).component("mainPage", {
+	angular.module("snm.pages.mainPage", [
+		"ngRoute",
+		"snm.ops.components.siteArcheoList"]).component("mainPage", {
 		templateUrl: '/app/pages/main/main.page.html',
 		controller: MainController,
 		controllerAs: "vm"

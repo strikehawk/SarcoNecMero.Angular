@@ -1,5 +1,6 @@
 /// <reference path="../services/dal/definitions.ts" />
 /// <reference path="../chrono/definitions.ts" />
+/// <reference path="../pers/definitions.ts" />
 
 declare module snm.ops {
     export interface DepartementData {
@@ -16,6 +17,11 @@ declare module snm.ops {
         codeRegion: number;
     }
 
+    export interface IdentificationSite {
+        referentielId: number;
+        reference: string;
+    }
+
     export interface SiteArcheoData {
         id: number;
         codeCommune: number;
@@ -25,6 +31,24 @@ declare module snm.ops {
         debutOccupationId: number;
         finOccupationId: number;
         planId: number;
+        identifications: IdentificationSite[];
+    }
+
+    export interface OperationArcheoData {
+        id: number;
+        siteId: number;
+        codeCommune: number;
+        x: number;
+        y: number;
+        localisation: string;
+        responsableId: number;
+        organismeId: number;
+        debutTravaux: string;
+        finTravaux: string;
+        debutOccupationId: number;
+        finOccupationId: number;
+        planId: number;
+        identifications: IdentificationSite[];
     }
 
     export interface IDepartement extends DepartementData, snm.services.dal.IEntity<number> {
@@ -36,6 +60,16 @@ declare module snm.ops {
 
     export interface ISiteArcheo extends SiteArcheoData, snm.services.dal.IEntity<number> {
         commune: ICommune;
+        operations: IOperationArcheo[];
+        debutOccupation: snm.chrono.IPhaseChronologique;
+        finOccupation: snm.chrono.IPhaseChronologique;
+    }
+
+    export interface IOperationArcheo extends OperationArcheoData, snm.services.dal.IEntity<number> {
+        site: ISiteArcheo;
+        commune: ICommune;
+        responsable: snm.pers.IPersonne;
+        organisme: snm.pers.IOrganisme;
         debutOccupation: snm.chrono.IPhaseChronologique;
         finOccupation: snm.chrono.IPhaseChronologique;
     }
@@ -47,5 +81,9 @@ declare module snm.ops {
     }
 
     export interface ISiteArcheoSet extends snm.services.dal.EntitySet<number, ISiteArcheo> {
+    }
+
+    export interface IOperationArcheoSet extends snm.services.dal.EntitySet<number, IOperationArcheo> {
+        getBySiteId(siteId: number): IOperationArcheo[];
     }
 }

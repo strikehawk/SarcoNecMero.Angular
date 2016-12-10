@@ -4,6 +4,6 @@
 
 module adunware.snm.components {
 	angular.module(adunware.snm.AppConstants.COMPONENTS_MODULE_NAME, [
-		"adunware.snm.components.navMenu"
+		"snm.components.navMenu"
 	]);
 }

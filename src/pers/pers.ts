@@ -8,7 +8,8 @@ module snm.pers {
     import DbContext = snm.services.dal.DbContext;
 
     angular.module(adunware.snm.AppConstants.PERS_MODULE_NAME, [
-        "adunware.snm.services.dal.dbContext"
+        "snm.services.dal.dbContext",
+        "snm.pers.components.personne"
     ]).run(["dbContext", (dbContext: DbContext) => {
         DbContext.addRepository("Personne", (dbContext: DbContext, $http: ng.IHttpService) =>
             new snm.pers.dal.PersonneSet(dbContext, $http));

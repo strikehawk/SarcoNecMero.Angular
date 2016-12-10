@@ -51,6 +51,6 @@ module snm.services.dal {
         }
     }
 
-    angular.module("adunware.snm.services.dal.dbContext", [])
+    angular.module("snm.services.dal.dbContext", [])
         .factory("dbContext", ["$http", ($http: ng.IHttpService) => new DbContext($http)]);
 }

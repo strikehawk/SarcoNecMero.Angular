@@ -1,20 +1,5 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand">SarcoNecMero.Web</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a>Home</a></li>
-                <li><a>About</a></li>
-                <li><a>Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+﻿<md-nav-bar md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links">
+    <md-nav-item md-nav-href="#/home" name="home">Accueil</md-nav-item>
+    <md-nav-item md-nav-href="#/sites" name="sites">Sites</md-nav-item>
+    <md-nav-item md-nav-href="#/sarcos" name="sarcos">Sarcophages</md-nav-item>
+</md-nav-bar>
