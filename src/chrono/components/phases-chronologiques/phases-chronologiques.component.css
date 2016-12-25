@@ -1,0 +1,23 @@
+.phases-chronologiques {
+    border: 2px solid black;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+.phases-chronologiques > div {
+    display: table-row;
+}
+
+.phases-chronologiques .phase {
+    display: table-cell;
+    font-weight: bold;
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid black;
+    color: black;
+    font-size:10px
+}
