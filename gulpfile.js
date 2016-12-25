@@ -30,9 +30,7 @@ var paths = {
     assets: {
         css: {
             input: [
-                assetsInputRoot + "css/**/*css",
-                srcRoot + "directives/**/*.css",
-                srcRoot + "pages/**/*.css",
+                srcRoot + "**/*.css"
             ],
             output: assetsOutputRoot + "css/"
         },
@@ -69,7 +67,7 @@ paths.concatJsDest = paths.webroot + "js/site.min.js";
 paths.index = paths.webroot + "index.html";
 
 gulp.task("clean", function (cb) {
-    del(appRoot + "**", cb);
+    del(webRoot + "**", cb);
 });
 
 gulp.task("min:js", function () {
@@ -81,7 +79,7 @@ gulp.task("min:js", function () {
 
 gulp.task("min:css", function () {
     return gulp.src(paths.assets.css.input)
-        .pipe(concat(paths.assets.css.output + "site.min.css"))
+        .pipe(concat(paths.assets.css.output + "sarconecmero.min.css"))
         .pipe(cssmin())
         .pipe(gulp.dest("."));
 });
@@ -91,10 +89,8 @@ gulp.task("copy", function(cb) {
         .pipe(gulp.dest(paths.views.output));
     gulp.src(paths.assets.img.input)
         .pipe(gulp.dest(paths.assets.img.output));
-    gulp.src(paths.assets.fonts.input)
-        .pipe(gulp.dest(paths.assets.fonts.output));
     gulp.src(paths.assets.css.input)
-        .pipe(concat(paths.assets.css.output + "site.css"))
+        .pipe(concat(paths.assets.css.output + "sarconecmero.css"))
         .pipe(gulp.dest("."));
 
     cb();

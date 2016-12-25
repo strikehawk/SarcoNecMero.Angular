@@ -1,21 +1,24 @@
 {
-	"version": "1.0.0",
-	"name": "SarcoNecMero",
-	"private": true,
-    "devDependencies": {
-        "del": "latest",
-        "typescript": "latest",
-        "karma": "0.13",
-        "jasmine": "latest",
-        "gulp": "latest",
-        "gulp-typescript": "latest",
-        "gulp-rename": "latest",
-        "gulp-sourcemaps": "latest",
-        "gulp-concat": "latest",
-        "gulp-cssmin": "latest",
-        "gulp-jasmine": "latest",
-        "gulp-karma": "latest",
-        "gulp-uglify": "latest",
-        "run-sequence": "latest"
-    }
+  "version": "1.0.0",
+  "name": "SarcoNecMero",
+  "private": true,
+  "devDependencies": {
+    "del": "latest",
+    "typescript": "latest",
+    "karma": "0.13",
+    "jasmine": "latest",
+    "gulp": "latest",
+    "gulp-typescript": "latest",
+    "gulp-rename": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-concat": "latest",
+    "gulp-cssmin": "latest",
+    "gulp-jasmine": "latest",
+    "gulp-karma": "latest",
+    "gulp-uglify": "latest",
+    "run-sequence": "latest"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.44"
+  }
 }
