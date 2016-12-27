@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/angular/angular.d.ts" />
+/// <reference path="../map-ol3/map-ol3.component.ts" />
 
 module adunware.snm.components {
     class Controller {
@@ -8,8 +9,10 @@ module adunware.snm.components {
     }
 
     // component
-    angular.module("snm.components.map", []).component("map", {
-        templateUrl: '/app/components/map/map.component.html',
+    angular.module("snm.maps.map", [
+        "snm.maps.map-ol3"
+    ]).component("map", {
+        templateUrl: '/app/maps/map/map.component.html',
         controller: Controller,
         controllerAs: "vm"
     });

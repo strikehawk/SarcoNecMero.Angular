@@ -59,7 +59,7 @@ module snm.pages {
     // component
     angular.module("snm.pages.sitesPage", [
         "ngRoute",
-        "snm.components.map",
+        "snm.maps.map",
         "snm.ops.components.siteArcheoList"]).component("sitesPage", {
         templateUrl: '/app/pages/sites/sites.page.html',
         controller: Controller,

@@ -1984,7 +1984,7 @@ otherwise it will be negative.
     type StyleImageOptions = any;
 
     /**
-     * Number of features; bounds/extent.
+     * number of features; bounds/extent.
      */
     type WFSFeatureCollectionMetadata = any;
 
@@ -6504,7 +6504,7 @@ otherwise it will be negative.
             /**
              * Create a regular polygon from a circle.
              * @param circle  (Required) Circle geometry.
-             * @param opt_sides  (Optional) Number of sides of the polygon. Default is 32.
+             * @param opt_sides  (Optional) number of sides of the polygon. Default is 32.
              * @param opt_angle  (Optional) Start angle for the first vertex of the polygon in
     radians. Default is 0.
              */
@@ -7679,7 +7679,7 @@ otherwise it will be negative.
              * Create a `geometryFunction` for `type: 'Circle'` that will create a regular
              * polygon with a user specified number of sides and start angle instead of an
              * `ol.geom.Circle` geometry.
-             * @param opt_sides  (Optional) Number of sides of the regular polygon. Default is
+             * @param opt_sides  (Optional) number of sides of the regular polygon. Default is
     32.
              * @param opt_angle  (Optional) Angle of the first point in radians. 0 means East.
     Default is the angle defined by the heading from the center of the
@@ -18445,7 +18445,7 @@ declare module olx {
              */
             startIndex?: number;
             /**
-             * Number of features to retrieve when paging. This is a WFS 2.0 feature
+             * number of features to retrieve when paging. This is a WFS 2.0 feature
              * backported to WFS 1.1.0 by some Web Feature Services. Please note that some
              * Web Feature Services have repurposed `maxfeatures` instead.
              */
@@ -20402,7 +20402,7 @@ declare module olx {
              */
             fill?: ol.style.Fill;
             /**
-             * Number of points for stars and regular polygons. In case of a polygon, the
+             * number of points for stars and regular polygons. In case of a polygon, the
              * number of points is the number of sides.
              */
             points: number;
@@ -20672,7 +20672,7 @@ declare module olx {
              */
             matrixIds: string[];
             /**
-             * Number of tile rows and columns of the grid for each zoom level. The values
+             * number of tile rows and columns of the grid for each zoom level. The values
              * here are the `TileMatrixWidth` and `TileMatrixHeight` advertised in the
              * GetCapabilities response of the WMTS, and define the grid's extent together
              * with the `origin`. An `extent` can be configured in addition, and will
@@ -20692,7 +20692,7 @@ declare module olx {
              */
             tileSizes?: (number|ol.Size)[];
             /**
-             * Number of tile columns that cover the grid's extent for each zoom level. Only
+             * number of tile columns that cover the grid's extent for each zoom level. Only
              * required when used with a source that has `wrapX` set to `true`, and only
              * when the grid's origin differs from the one of the projection's extent. The
              * array length has to match the length of the `resolutions` array, i.e. each

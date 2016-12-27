@@ -2,6 +2,7 @@
 /// <reference path="../typings/angular/angular-route.d.ts" />
 /// <reference path="../typings/angular-material/angular-material.d.ts" />
 /// <reference path="components/components.ts" />
+/// <reference path="maps/maps.ts" />
 /// <reference path="pages/pages.ts" />
 /// <reference path="services/services.ts" />
 /// <reference path="ops/ops.ts" />
@@ -26,6 +27,7 @@ class Bootstrap {
         (<ng.IAngularStatic>angular).module(adunware.snm.AppConstants.CORE_MODULE_NAME, [
                 adunware.snm.AppConstants.APP_MODULE_NAME,
                 adunware.snm.AppConstants.COMPONENTS_MODULE_NAME,
+                adunware.snm.AppConstants.MAPS_MODULE_NAME,
                 adunware.snm.AppConstants.PAGES_MODULE_NAME,
                 adunware.snm.AppConstants.SERVICES_MODULE_NAME,
                 adunware.snm.AppConstants.CHRONO_MODULE_NAME,

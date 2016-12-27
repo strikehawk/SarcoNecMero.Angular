@@ -21,6 +21,10 @@
 			return this.CORE_MODULE_NAME + ".services";
 		}
 
+		public static get MAPS_MODULE_NAME(): string {
+			return this.CORE_MODULE_NAME + ".maps";
+		}
+
 		public static get OPS_MODULE_NAME(): string {
 			return this.CORE_MODULE_NAME + ".ops";
 		}
