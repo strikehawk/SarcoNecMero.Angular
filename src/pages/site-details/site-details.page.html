@@ -1,0 +1,17 @@
+<div layout="column" ng-cloak="" class="md-inline-form">
+    <md-content md-theme="docs-dark" layout="row" layout-padding="">
+        <div class="md-block data-container" flex>
+            <label>Référence</label>
+            <div>{{vm.site.reference}}</div>
+        </div>
+
+        <div class="md-block data-container" flex>
+            <label>Site</label>
+            <div>{{vm.site.localisation}}</div>
+        </div>
+
+        <div>
+            <md-button md-no-ink class="md-primary" ng-click="vm.edit()">Editer</md-button>
+        </div>
+    </md-content>
+</div>

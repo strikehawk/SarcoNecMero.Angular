@@ -1,0 +1,17 @@
+.site-archeo-list {
+    padding: 0;
+}
+
+.site-archeo-list .site-archeo {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.site-archeo-list .operation-archeo .md-list-item-text {
+    position: relative;
+    z-index: 1;
+}
+
+.site-archeo-list .operation-archeo h3 {
+    font-weight: bold;
+}

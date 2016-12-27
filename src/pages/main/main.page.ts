@@ -2,18 +2,16 @@
 
 module snm.pages {
 	// controller
-	class MainController {
+	class Controller {
 		constructor() {
-			console.log("Alive Main");
 		}
 	}
 
 	// component
 	angular.module("snm.pages.mainPage", [
-		"ngRoute",
-		"snm.ops.components.siteArcheoList"]).component("mainPage", {
+		"ngRoute"]).component("mainPage", {
 		templateUrl: '/app/pages/main/main.page.html',
-		controller: MainController,
+		controller: Controller,
 		controllerAs: "vm"
 	});
 }

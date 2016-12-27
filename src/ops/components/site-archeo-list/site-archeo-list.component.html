@@ -1,12 +1,15 @@
-﻿<div>
-    <ul>
-        <li ng-repeat="site in vm.sites">
-            <span>{{site.localisation}} ({{site.commune.nom}} - {{site.commune.departement.numero}})</span>
-            <div><phases-chrono debut="site.debutOccupationId" fin="site.finOccupationId"></phases-chrono></div>
-            <div ng-repeat="op in site.operations">
-                <div>{{op.localisation}}</div>
-                <div><personne personne="op.responsable"></personne> <span ng-show="op.responsable && op.organisme">-</span> {{op.organisme}}</div>
+﻿<md-list class="md-dense site-archeo-list">
+    <div ng-repeat="commune in $ctrl.communes" class="md-whiteframe-1dp">
+        <md-toolbar class="md-no-sticky md-primary md-toolbar-tools site-archeo">
+            <div class="site-archeo" layout="column">
+                <span>{{commune.nom}}</span>
+                <span ng-if="commune.departement"> ({{commune.departement}})</span>
             </div>
-        </li>
-    </ul>
-</div>
+        </md-toolbar>
+        <md-list-item class="md-2-line md-long-text operation-archeo" ng-repeat="site in commune.sites"
+                      ng-click="$ctrl.selectSite({siteId: site.id})">
+            <span>{{site.reference}} {{site.localisation}}</span>
+        </md-list-item>
+        <md-divider></md-divider>
+    </div>
+</md-list>

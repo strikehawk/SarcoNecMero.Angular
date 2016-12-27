@@ -19,6 +19,6 @@
     "run-sequence": "latest"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.44"
+    "@types/lodash": "^4.14.44",
   }
 }

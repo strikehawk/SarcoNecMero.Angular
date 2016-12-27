@@ -1,5 +1,6 @@
 ﻿/// <reference path="../typings/angular/angular.d.ts" />
 /// <reference path="../typings/angular/angular-route.d.ts" />
+/// <reference path="../typings/angular-material/angular-material.d.ts" />
 /// <reference path="components/components.ts" />
 /// <reference path="pages/pages.ts" />
 /// <reference path="services/services.ts" />
@@ -11,7 +12,16 @@ class Bootstrap {
         angular.module(adunware.snm.AppConstants.APP_MODULE_NAME, [
                 "ngRoute",
                 "ngMaterial"])
-            .config(Bootstrap._configureRoutes);
+            .config(Bootstrap._configureRoutes)
+            .config(function ($mdThemingProvider) {
+
+                // Configure a dark theme with primary foreground yellow
+
+                $mdThemingProvider.theme('docs-dark', 'default')
+                    .primaryPalette('yellow')
+                    .dark();
+
+            });
 
         (<ng.IAngularStatic>angular).module(adunware.snm.AppConstants.CORE_MODULE_NAME, [
                 adunware.snm.AppConstants.APP_MODULE_NAME,
@@ -30,15 +40,23 @@ class Bootstrap {
 
         // route for the home page
             .when("/", {
-                template: "<main-page layout='column' flex></main-page>",
+                template: "<main-page></main-page>"
             })
 
-            //// route for the character sheet page
-            //.when('/team', {
-            //	templateUrl: 'pages/team.html',
-            //	controller: Adunware.Rpg.Pages.TeamPageController.CONTROLLER_NAME,
-            //	controllerAs: "vm"
-            //})
+            // route for the sites list page
+            .when('/sites', {
+                template: "<sites-page flex layout='column'></sites-page>"
+            })
+
+            // route for the site details page
+            .when('/sites/:siteId', {
+                template: "<site-details-page></site-details-page>"
+            })
+
+            // route for the site edit page
+            .when('/sites/edit/:siteId', {
+                template: "<site-edit-page></site-edit-page>"
+            })
 
             //// route for the inventory page
             //.when('/inventory', {
@@ -48,10 +66,6 @@ class Bootstrap {
             //})
 
             .otherwise("/");
-    }
-
-    private static _initServices(): void {
-
     }
 }
 
