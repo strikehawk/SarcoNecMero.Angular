@@ -3,6 +3,7 @@
 /// <reference path="../../ops/definitions-details.ts" />
 
 module snm.pages {
+    import IRoute = angular.route.IRoute;
     interface IRouteParams extends ng.route.IRouteParamsService {
         siteId: number;
     }

@@ -42,21 +42,25 @@ class Bootstrap {
 
         // route for the home page
             .when("/", {
+                name: "home",
                 template: "<main-page></main-page>"
             })
 
             // route for the sites list page
             .when('/sites', {
+                name: "sites",
                 template: "<sites-page flex layout='column'></sites-page>"
             })
 
             // route for the site details page
             .when('/sites/:siteId', {
+                name: "site-details",
                 template: "<site-details-page></site-details-page>"
             })
 
             // route for the site edit page
             .when('/sites/edit/:siteId', {
+                name: "site-edit",
                 template: "<site-edit-page></site-edit-page>"
             })
 
