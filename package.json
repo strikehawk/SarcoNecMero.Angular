@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.44",
-    "cesium": "^1.28.0"
+    "cesium": "^1.28.0",
+    "openlayers": "latest"
   }
 }
