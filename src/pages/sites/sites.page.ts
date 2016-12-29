@@ -1,5 +1,7 @@
 /// <reference path="../../../typings/angular/angular.d.ts" />
 /// <reference path="../../ops/definitions-summary.ts" />
+/// <reference path="../../maps/components/map/map.ts" />
+/// <reference path="../../maps/components/map-toolbar/map-toolbar.component.ts" />
 
 module snm.pages {
     // controller
@@ -8,12 +10,31 @@ module snm.pages {
 
         public communes: snm.ops.CommuneSummary[];
 
+        private _map: snm.maps.components.Map;
+
+        public get map(): snm.maps.components.Map {
+            return this._map;
+        }
+
         constructor(private $scope: ng.IScope,
                     private $log: ng.ILogService,
                     private $http: ng.IHttpService,
                     private $location: ng.ILocationService,
                     private userSettings: snm.services.settings.UserSettings) {
-            $http.get<snm.ops.SiteArcheoSummary[]>("api/ops/sites/summary")
+            this._setupMap();
+            this._getSitesData();
+        }
+
+        public onSelectSite(siteId: number): void {
+            this.$location.path("/sites/" + siteId);
+        }
+
+        private _setupMap(): void {
+            this._map = new snm.maps.components.Map("map", this.userSettings);
+        }
+
+        private _getSitesData(): void {
+            this.$http.get<snm.ops.SiteArcheoSummary[]>("api/ops/sites/summary")
                 .then((result: ng.IHttpPromiseCallbackArg<snm.ops.SiteArcheoSummary[]>) => {
                     let map: Map<number, snm.ops.CommuneSummary> = new Map<number, snm.ops.CommuneSummary>();
                     let commune: snm.ops.CommuneSummary;
@@ -50,16 +71,12 @@ module snm.pages {
                     });
                 });
         }
-
-        public onSelectSite(siteId: number): void {
-            this.$location.path("/sites/" + siteId);
-        }
     }
 
     // component
     angular.module("snm.pages.sitesPage", [
         "ngRoute",
-        "snm.maps.components.map",
+        "snm.maps.components.map-toolbar",
         "snm.ops.components.siteArcheoList"]).component("sitesPage", {
         templateUrl: '/app/pages/sites/sites.page.html',
         controller: Controller,

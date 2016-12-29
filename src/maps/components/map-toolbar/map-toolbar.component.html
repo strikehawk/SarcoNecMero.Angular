@@ -1,0 +1,21 @@
+<md-toolbar>
+    <div class="md-toolbar-tools map-toolbar">
+        <md-button aria-label="Point de départ">
+            Home
+        </md-button>
+        <span>X: {{vm.map.cursor[0] | number:0}} Y: {{vm.map.cursor[1] | number:0}}</span>
+        <span flex></span>
+        <span ng-show="vm.showScale" ng-click="vm.toggleScale()">
+            Echelle 1 : {{vm.map.scale | number:0}}
+            <md-tooltip>
+                Cliquez pour alterner entre échelle et niveau de zoom
+            </md-tooltip>
+        </span>
+        <span ng-show="!vm.showScale" ng-click="vm.toggleScale()">
+            Zoom {{vm.map.zoom}}
+            <md-tooltip>
+                Cliquez pour alterner entre échelle et niveau de zoom
+            </md-tooltip>
+        </span>
+    </div>
+</md-toolbar>
