@@ -1,7 +1,7 @@
 ﻿<md-list class="md-dense site-archeo-list">
     <div ng-repeat="commune in $ctrl.communes" class="md-whiteframe-1dp">
         <md-toolbar class="md-no-sticky md-primary md-toolbar-tools site-archeo">
-            <div class="site-archeo" layout="column">
+            <div class="site-archeo">
                 <span>{{commune.nom}}</span>
                 <span ng-if="commune.departement"> ({{commune.departement}})</span>
             </div>
