@@ -19,8 +19,7 @@
     "run-sequence": "latest"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.44",
-    "cesium": "^1.28.0",
+    "@types/lodash": "latest",
     "openlayers": "latest"
   }
 }

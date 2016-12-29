@@ -96,17 +96,6 @@ gulp.task("copy", function(cb) {
     cb();
 });
 
-gulp.task("copyLibs:Cesium", function(cb) {
-    del(libsRoot + "cesium/**", cb);
-
-    gulp.src("./node_modules/cesium/Build/Cesium/**/*.*", {base: "./node_modules/cesium/Build/Cesium"})
-        .pipe(gulp.dest(libsRoot + "cesium/minified"));
-    gulp.src("./node_modules/cesium/Build/CesiumUnminified/**/*.*", {base: "./node_modules/cesium/Build/CesiumUnminified"})
-        .pipe(gulp.dest(libsRoot + "cesium/debug"));
-
-    cb();
-});
-
 gulp.task("copyLibs:OL3", function(cb) {
     del(libsRoot + "ol3/**", cb);
 
