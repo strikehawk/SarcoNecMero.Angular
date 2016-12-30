@@ -18,6 +18,17 @@ module snm.services.settings {
     }
 
     export class UserSettings {
+        public static defaultSettings: DefaultSettings;
+
+        public static fetchSettings($http: ng.IHttpService): ng.IHttpPromise<DefaultSettings> {
+            return $http.get<DefaultSettings>("api/settings/default")
+                .then<DefaultSettings>((result: ng.IHttpPromiseCallbackArg<DefaultSettings>) => {
+                    UserSettings.defaultSettings = result.data;
+
+                    return result.data;
+                });
+        }
+
         private _opsReferentialId: number;
 
         /**
@@ -57,16 +68,15 @@ module snm.services.settings {
             this._homeLocation = value;
         }
 
-        constructor(private $http: ng.IHttpService) {
-            $http.get<DefaultSettings>("api/settings/default")
-                .then((result: ng.IHttpPromiseCallbackArg<DefaultSettings>) => {
-                    this._opsReferentialId = result.data.opsReferentialId;
-                    this._startZoom = result.data.startZoom;
-                    this._homeLocation = result.data.homeLocation;
-                });
+        constructor() {
+            if (UserSettings.defaultSettings) {
+                this._opsReferentialId = UserSettings.defaultSettings.opsReferentialId;
+                this._startZoom = UserSettings.defaultSettings.startZoom;
+                this._homeLocation = UserSettings.defaultSettings.homeLocation;
+            }
         }
     }
     
     angular.module("snm.services.settings", [])
-        .factory("userSettings", ["$http", ($http: ng.IHttpService) => new UserSettings($http)]);
+        .factory("userSettings", () => new UserSettings());
 }

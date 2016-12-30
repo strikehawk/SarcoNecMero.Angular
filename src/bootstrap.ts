@@ -9,6 +9,8 @@
 /// <reference path="chrono/chrono.ts" />
 /// <reference path="pers/pers.ts" />
 
+/// <reference path="services/settings/user-settings.ts" />
+
 class Bootstrap {
     public static initialize(): void {
         angular.module(snm.AppConstants.CORE_MODULE_NAME, [
@@ -31,7 +33,14 @@ class Bootstrap {
 
             });
 
-        angular.bootstrap(document, [snm.AppConstants.CORE_MODULE_NAME]);
+        angular.element(document).ready(() => {
+            let initInjector: angular.auto.IInjectorService = angular.injector(["ng"]);
+            let $http: ng.IHttpService = initInjector.get<ng.IHttpService>("$http");
+            snm.services.settings.UserSettings.fetchSettings($http)
+                .then(() => {
+                    angular.bootstrap(document, [snm.AppConstants.CORE_MODULE_NAME]);
+                });
+        });
     }
 
     private static _configureRoutes($routeProvider: ng.route.IRouteProvider): void {
