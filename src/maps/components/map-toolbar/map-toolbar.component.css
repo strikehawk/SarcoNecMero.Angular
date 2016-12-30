@@ -1,3 +1,8 @@
 .map-toolbar span {
     font-size: 12px;
 }
+
+.map-toolbar .zoomScale {
+    width: 130px;
+    cursor: pointer;
+}

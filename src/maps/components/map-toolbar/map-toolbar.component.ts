@@ -1,9 +1,10 @@
 /// <reference path="../../../../typings/angular/angular.d.ts" />
+/// <reference path="../../../services/settings/user-settings.ts" />
 /// <reference path="../map/map.ts" />
 
 module snm.maps.components {
     class Controller {
-        static $inject: string[] = ["$scope"];
+        static $inject: string[] = ["$scope", "userSettings"];
 
         private _showScale: boolean = true;
 
@@ -26,7 +27,14 @@ module snm.maps.components {
             this._registerToMapEvents(value);
         }
 
-        constructor(private $scope: ng.IScope) {
+        constructor(private $scope: ng.IScope, private userSettings: snm.services.settings.UserSettings) {
+        }
+
+        public flyToHome(): void {
+            let home: ol.Coordinate = this._map.convertToProj(this.userSettings.homeLocation);
+            this._map.flyTo(home, () => {
+                this.$scope.$apply();
+            });
         }
 
         public toggleScale(): void {
@@ -59,7 +67,9 @@ module snm.maps.components {
     }
 
     // component
-    angular.module("snm.maps.components.map-toolbar", []).component("mapToolbar", {
+    angular.module("snm.maps.components.map-toolbar", [
+        "snm.services.settings"
+    ]).component("mapToolbar", {
         templateUrl: "/app/maps/components/map-toolbar/map-toolbar.component.html",
         controller: Controller,
         controllerAs: "vm",

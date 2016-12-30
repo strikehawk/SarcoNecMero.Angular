@@ -63,6 +63,10 @@ module snm.maps.components {
             return proj4<ol.Coordinate>(this._PROJ, this._DATA_PROJ, coordinates);
         }
 
+        public flyTo(coordinates: ol.Coordinate, done?: (complete: boolean) => void): void {
+            this._viewManager.flyTo(coordinates, done);
+        }
+
         public on(event: string, callback: adnw.common.EventCallback<any>): void {
             if (!event) {
                 throw new Error("Event cannot be empty.");
@@ -89,7 +93,7 @@ module snm.maps.components {
 
         private _createMap(elementId: string): ol.Map {
             let view: ol.View = new ol.View({
-                projection: "EPSG:3857",
+                projection: this._PROJ,
                 center: this.userSettings.homeLocation ? this.convertToProj(this.userSettings.homeLocation) : [0, 0],
                 zoom: this.userSettings.startZoom ? this.userSettings.startZoom : 1
             });
@@ -102,6 +106,7 @@ module snm.maps.components {
 
             let map: ol.Map = new ol.Map({
                 target: elementId,
+                loadTilesWhileAnimating: true,
                 view: view,
                 layers: layers,
                 interactions: ol.interaction.defaults().extend([new snm.maps.components.CursorPosition(this)])

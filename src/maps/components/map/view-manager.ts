@@ -52,6 +52,40 @@ module snm.maps.components {
             this._setupView(olMap.getView());
         }
 
+        public flyTo(coordinates: ol.Coordinate, done?: (complete: boolean) => void): void {
+            let view: ol.View = this._olMap.getView();
+            let duration: number = 2000;
+            let zoom: number = view.getZoom();
+            let parts: number = 2;
+            let called = false;
+
+            let callback: (complete: boolean) => void = (complete: boolean) => {
+                --parts;
+                if (called) {
+                    return;
+                }
+                if (parts === 0 || !complete) {
+                    called = true;
+
+                    if (done) {
+                        done(complete);
+                    }
+                }
+            };
+
+            view.animate({
+                center: coordinates,
+                duration: duration
+            }, callback);
+            view.animate({
+                zoom: zoom - 1,
+                duration: duration / 2
+            }, {
+                zoom: zoom,
+                duration: duration / 2
+            }, callback);
+        }
+
         private _computeScale(resolution: number, proj: ol.proj.Projection): number {
             let dpi: number = 25.4 / 0.28;
             let scale: number = resolution * proj.getMetersPerUnit() * 39.37 * dpi;
