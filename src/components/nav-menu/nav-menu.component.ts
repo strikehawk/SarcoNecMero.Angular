@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../typings/angular/angular.d.ts" />
 /// <reference path="../../../typings/angular/angular-route.d.ts" />
 
-module adunware.snm.components {
+module snm.components {
     class Controller {
         public currentNavItem: string;
 

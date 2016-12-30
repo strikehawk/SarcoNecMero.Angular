@@ -1,8 +1,8 @@
-﻿module adunware.snm {
+﻿module snm {
 	export class AppConstants {
 
 		public static get CORE_MODULE_NAME(): string {
-			return "adunware.snm";
+			return "snm";
 		}
 
 		public static get APP_MODULE_NAME(): string {
@@ -35,10 +35,6 @@
 
 		public static get CHRONO_MODULE_NAME(): string {
 			return this.CORE_MODULE_NAME + ".chrono";
-		}
-
-		public static get APP_INSTANCE(): string {
-			return "app-instance";
 		}
 	}
 }

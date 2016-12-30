@@ -17,11 +17,8 @@ module snm.ops.components {
     }
 
     // component
-    angular.module("snm.ops.components.siteArcheoList", [
-        "snm.services.dal.dbContext",
-        "snm.chrono.components.phases-chronologiques",
-        "snm.pers.components.personne"
-    ]).component("siteArcheoList", {
+    angular.module("snm.ops.components.siteArcheoList", [])
+        .component("siteArcheoList", {
         templateUrl: '/app/ops/components/site-archeo-list/site-archeo-list.component.html',
         controller: SiteArcheoListController,
         bindings: {

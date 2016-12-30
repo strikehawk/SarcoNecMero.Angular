@@ -6,35 +6,32 @@
 /// <reference path="pages/pages.ts" />
 /// <reference path="services/services.ts" />
 /// <reference path="ops/ops.ts" />
+/// <reference path="chrono/chrono.ts" />
 /// <reference path="pers/pers.ts" />
 
 class Bootstrap {
     public static initialize(): void {
-        angular.module(adunware.snm.AppConstants.APP_MODULE_NAME, [
+        angular.module(snm.AppConstants.CORE_MODULE_NAME, [
+                snm.AppConstants.COMPONENTS_MODULE_NAME,
+                snm.AppConstants.MAPS_MODULE_NAME,
+                snm.AppConstants.PAGES_MODULE_NAME,
+                snm.AppConstants.SERVICES_MODULE_NAME,
+                snm.AppConstants.CHRONO_MODULE_NAME,
+                snm.AppConstants.OPS_MODULE_NAME,
+                snm.AppConstants.PERS_MODULE_NAME,
                 "ngRoute",
-                "ngMaterial"])
+                "ngMaterial"
+            ])
             .config(Bootstrap._configureRoutes)
             .config(function ($mdThemingProvider) {
-
                 // Configure a dark theme with primary foreground yellow
-
                 $mdThemingProvider.theme('docs-dark', 'default')
                     .primaryPalette('yellow')
                     .dark();
 
             });
 
-        (<ng.IAngularStatic>angular).module(adunware.snm.AppConstants.CORE_MODULE_NAME, [
-                adunware.snm.AppConstants.APP_MODULE_NAME,
-                adunware.snm.AppConstants.COMPONENTS_MODULE_NAME,
-                adunware.snm.AppConstants.MAPS_MODULE_NAME,
-                adunware.snm.AppConstants.PAGES_MODULE_NAME,
-                adunware.snm.AppConstants.SERVICES_MODULE_NAME,
-                adunware.snm.AppConstants.CHRONO_MODULE_NAME,
-                adunware.snm.AppConstants.OPS_MODULE_NAME,
-                adunware.snm.AppConstants.PERS_MODULE_NAME
-            ])
-            .value(adunware.snm.AppConstants.APP_INSTANCE, new adunware.snm.App());
+        angular.bootstrap(document, [snm.AppConstants.CORE_MODULE_NAME]);
     }
 
     private static _configureRoutes($routeProvider: ng.route.IRouteProvider): void {

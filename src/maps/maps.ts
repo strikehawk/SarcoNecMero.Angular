@@ -3,7 +3,7 @@
 /// <reference path="./components/map-toolbar/map-toolbar.component.ts" />
 
 module snm.maps {
-	angular.module(adunware.snm.AppConstants.MAPS_MODULE_NAME, [
+	angular.module(snm.AppConstants.MAPS_MODULE_NAME, [
 		"snm.maps.components.map-toolbar"
 	]);
 }

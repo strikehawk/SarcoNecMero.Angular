@@ -11,7 +11,7 @@
 module snm.ops {
     import DbContext = snm.services.dal.DbContext;
 
-    angular.module(adunware.snm.AppConstants.OPS_MODULE_NAME, [
+    angular.module(snm.AppConstants.OPS_MODULE_NAME, [
         "snm.services.dal.dbContext",
         "snm.ops.components.siteArcheoList",
     ]).run(["dbContext", (dbContext: DbContext) => {
