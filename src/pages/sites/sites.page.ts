@@ -21,8 +21,11 @@ module snm.pages {
                     private $http: ng.IHttpService,
                     private $location: ng.ILocationService,
                     private userSettings: snm.services.settings.UserSettings) {
-            this._setupMap();
             this._getSitesData();
+        }
+
+        public $postLink(): void {
+            setTimeout(() => this._setupMap());
         }
 
         public onSelectSite(siteId: number): void {

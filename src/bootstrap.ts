@@ -61,13 +61,13 @@ class Bootstrap {
             // route for the site details page
             .when('/sites/:siteId', {
                 name: "site-details",
-                template: "<site-details-page></site-details-page>"
+                template: "<site-details-page flex layout='column'></site-details-page>"
             })
 
             // route for the site edit page
             .when('/sites/edit/:siteId', {
                 name: "site-edit",
-                template: "<site-edit-page></site-edit-page>"
+                template: "<site-edit-page flex layout='column'></site-edit-page>"
             })
 
             //// route for the inventory page

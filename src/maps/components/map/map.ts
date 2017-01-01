@@ -3,6 +3,7 @@
 /// <reference path="../../../common/event-block.ts" />
 /// <reference path="./view-manager.ts" />
 /// <reference path="./interactions/cursor-position.ts" />
+/// <reference path="./interactions/location-picker.ts" />
 /// <reference path="../../../services/settings/user-settings.ts" />
 
 module snm.maps.components {
@@ -65,6 +66,19 @@ module snm.maps.components {
 
         public flyTo(coordinates: ol.Coordinate, done?: (complete: boolean) => void): void {
             this._viewManager.flyTo(coordinates, done);
+        }
+
+        public pickLocation(): Promise<ol.Coordinate> {
+            let picker: LocationPicker = new LocationPicker();
+
+            this._map.addInteraction(picker);
+            picker.promise.then(() => {
+                this._map.removeInteraction(picker);
+            }, () => {
+                this._map.removeInteraction(picker);
+            });
+
+            return picker.promise;
         }
 
         public on(event: string, callback: adnw.common.EventCallback<any>): void {

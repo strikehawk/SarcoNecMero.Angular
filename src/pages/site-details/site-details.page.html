@@ -1,6 +1,6 @@
-<div layout="column" ng-cloak="" class="md-inline-form">
-    <md-content md-theme="docs-dark" layout="row" layout-padding="">
-        <div class="md-block data-container" flex>
+<div layout="column" ng-cloak="" class="md-inline-form site-page">
+    <md-content md-theme="docs-dark" layout="row" class="site-header">
+        <div class="md-block data-container site-reference">
             <label>Référence</label>
             <div>{{vm.site.reference}}</div>
         </div>
@@ -10,8 +10,12 @@
             <div>{{vm.site.localisation}}</div>
         </div>
 
+        <site-localisation site="vm.site" allow-edition="false" event-block="vm.eventBlock"></site-localisation>
+
         <div>
             <md-button md-no-ink class="md-primary" ng-click="vm.edit()">Editer</md-button>
         </div>
     </md-content>
+
+    <site-ops-map site="vm.site" event-block="vm.eventBlock"></site-ops-map>
 </div>

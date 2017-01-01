@@ -1,6 +1,9 @@
 /// <reference path="../../../typings/angular/angular.d.ts" />
 /// <reference path="../../../typings/angular/angular-route.d.ts" />
+/// <reference path="../../common/event-block.ts" />
 /// <reference path="../../ops/definitions-details.ts" />
+/// <reference path="../../ops/components/site-localisation/site-localisation.component.ts" />
+/// <reference path="../../ops/components/site-ops-map/site-ops-map.component.ts" />
 
 module snm.pages {
     interface IRouteParams extends ng.route.IRouteParamsService {
@@ -12,6 +15,12 @@ module snm.pages {
         static $inject: string[] = ["$scope", "$log", "$http", "$location", "userSettings", "$routeParams"];
 
         public site: snm.ops.details.SiteArcheo;
+
+        private _eventBlock: adnw.common.EventBlock;
+
+        public get eventBlock(): adnw.common.EventBlock {
+            return this._eventBlock;
+        }
 
         constructor(private $scope: ng.IScope,
                     private $log: ng.ILogService,
@@ -25,6 +34,8 @@ module snm.pages {
                 .then((result: ng.IHttpPromiseCallbackArg<snm.ops.details.SiteArcheo>) => {
                     this.site = result.data;
                 });
+
+            this._eventBlock = new adnw.common.EventBlock();
         }
 
         public edit(): void {
@@ -33,7 +44,11 @@ module snm.pages {
     }
 
     // component
-    angular.module("snm.pages.siteDetailsPage", ["ngRoute"])
+    angular.module("snm.pages.siteDetailsPage", [
+            "ngRoute",
+            "snm.ops.components.siteLocalisation",
+            "snm.ops.components.siteOpsMap"
+        ])
         .component("siteDetailsPage", {
             templateUrl: '/app/pages/site-details/site-details.page.html',
             controller: Controller,

@@ -1,0 +1,33 @@
+<div layout="row" class="fullSize site-localisation" layout-align="none center">
+    <div layout="column" layout-align="center none" flex>
+        <div ng-if="vm.site.commune" class="commune">
+            <span>{{vm.site.commune}}</span>
+            <span ng-if="vm.site.departement"> ({{vm.site.departement}})</span>
+        </div>
+        <div ng-if="!vm.site.commune" class="commune">
+            <span>Non renseigné</span>
+        </div>
+        <span class="coordinates" ng-if="vm.site.x != null && vm.site.y != null">
+            X: {{vm.site.x | number:0}} Y: {{vm.site.y | number:0}}
+        </span>
+        <span class="coordinates" ng-if="vm.site.x == null || vm.site.y == null">
+            Non renseigné
+        </span>
+    </div>
+    <div ng-if="vm.site.x != null && vm.site.y != null">
+        <md-button class="md-icon-button" aria-label="Centrer sur la localisation" ng-click="vm.centerOnLocation()">
+            <img src="assets/img/ic_center_focus_strong_white_24dp.png">
+            <md-tooltip>
+                Centrer sur la localisation
+            </md-tooltip>
+        </md-button>
+    </div>
+    <div ng-if="vm.allowEdition">
+        <md-button class="md-icon-button" aria-label="Editer la localisation" ng-click="vm.pickLocation()">
+            <img src="assets/img/ic_edit_location_white_24dp.png">
+            <md-tooltip>
+                Editer la localisation
+            </md-tooltip>
+        </md-button>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+.fullSize {
+    height: 100%;
+}
+
+.site-page .data-container {
+    padding: 2px;
+}
+
+.site-page .data-container label {
+    font-size: 75%;
+    color: rgba(255, 255, 255, 0.5);
+    height: 16px;
+}
+
+.site-page .site-header {
+    padding: 8px;
+}
+
+.site-page .toast-icon {
+    margin-right: 10px;
+}
+
+.site-page md-toast {
+    min-width: unset;
+}
+
+.site-page .site-header-edition {
+    padding: 8px;
+    overflow: hidden;
+}
+
+.site-page .site-header-edition md-input-container {
+    margin: 16px 0 -26px 0;
+}
+
+.site-page .site-reference, .site-page .site-header-edition md-input-container.site-reference {
+    width: 200px;
+    margin-right: 10px;
+}

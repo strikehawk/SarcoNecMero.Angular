@@ -2,6 +2,8 @@
 /// <reference path="../app-constants.ts" />
 
 /// <reference path="./components/site-archeo-list/site-archeo-list.component.ts" />
+/// <reference path="./components/site-localisation/site-localisation.component.ts" />
+/// <reference path="./components/site-ops-map/site-ops-map.component.ts" />
 /// <reference path="../services/dal/db-context.ts" />
 /// <reference path="./dal/departement-set.ts" />
 /// <reference path="./dal/commune-set.ts" />
@@ -14,6 +16,7 @@ module snm.ops {
     angular.module(snm.AppConstants.OPS_MODULE_NAME, [
         "snm.services.dal.dbContext",
         "snm.ops.components.siteArcheoList",
+        "snm.ops.components.siteLocalisation",
     ]).run(["dbContext", (dbContext: DbContext) => {
         DbContext.addRepository("Departement", (dbContext: DbContext, $http: ng.IHttpService) =>
             new snm.ops.dal.DepartementSet(dbContext, $http));

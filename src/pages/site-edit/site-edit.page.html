@@ -1,7 +1,7 @@
-<div layout="column" ng-cloak="" class="md-inline-form">
-    <md-content md-theme="docs-dark" layout-padding="">
+<div layout="column" ng-cloak="" class="md-inline-form site-page" flex>
+    <md-content md-theme="docs-dark" class="site-header-edition">
         <div layout="row" flex>
-            <md-input-container class="md-block" flex>
+            <md-input-container class="md-block site-reference">
                 <label>Référence</label>
                 <input ng-model="vm.site.reference">
             </md-input-container>
@@ -10,6 +10,28 @@
                 <label>Site</label>
                 <input ng-model="vm.site.localisation">
             </md-input-container>
+
+            <site-localisation site="vm.site" allow-edition="true" event-block="vm.eventBlock"></site-localisation>
         </div>
     </md-content>
+    <div id="content" flex>
+        <site-ops-map site="vm.site" event-block="vm.eventBlock" on-pick="vm.onPickLocation(coordinates)"></site-ops-map>
+    </div>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span flex></span>
+            <md-button class="md-raised md-primary md-hue-2" aria-label="Enregistrer" ng-click="vm.save()">
+                Enregistrer
+                <md-tooltip>
+                    Enregistrer les changements
+                </md-tooltip>
+            </md-button>
+            <md-button aria-label="Annuler" ng-click="vm.cancel()">
+                Annuler
+                <md-tooltip>
+                    Annuler les changements
+                </md-tooltip>
+            </md-button>
+        </div>
+    </md-toolbar>
 </div>
