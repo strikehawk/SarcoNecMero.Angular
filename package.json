@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@types/lodash": "latest",
+    "lodash": "^4.17.4",
     "openlayers": "latest"
   }
 }

@@ -22,7 +22,8 @@ class Bootstrap {
                 snm.AppConstants.OPS_MODULE_NAME,
                 snm.AppConstants.PERS_MODULE_NAME,
                 "ngRoute",
-                "ngMaterial"
+                "ngMaterial",
+                "ngMessages"
             ])
             .config(Bootstrap._configureRoutes)
             .config(function ($mdThemingProvider) {

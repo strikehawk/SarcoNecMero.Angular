@@ -2,6 +2,10 @@
     height: 100%;
 }
 
+.md-input-container-absolute {
+    position: relative;
+}
+
 .site-page .data-container {
     padding: 2px;
 }
@@ -30,10 +34,13 @@
 }
 
 .site-page .site-header-edition md-input-container {
-    margin: 16px 0 -26px 0;
+    margin: 16px 0 -10px 0;
+}
+
+.site-page .site-reference, .site-page .site-header-edition md-input-container {
+    margin-right: 10px;
 }
 
 .site-page .site-reference, .site-page .site-header-edition md-input-container.site-reference {
     width: 200px;
-    margin-right: 10px;
 }

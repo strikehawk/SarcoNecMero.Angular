@@ -29,9 +29,11 @@ declare namespace angular.material {
 
     interface MDPresetDialog<T> {
         title(title: string): T;
-        content(content: string): T;
+        textContent(content: string): T;
+        htmlContent(content: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
+        targetEvent(event: MouseEvent): T;
     }
 
     interface MDAlertDialog extends MDPresetDialog<MDAlertDialog> {

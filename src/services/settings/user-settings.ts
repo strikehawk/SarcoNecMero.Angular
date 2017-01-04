@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/angular/angular.d.ts" />
+
 module snm.services.settings {
 
     interface DefaultSettings {

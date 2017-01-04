@@ -105,6 +105,15 @@ gulp.task("copyLibs:OL3", function(cb) {
     cb();
 });
 
+gulp.task("copyLibs:lodash", function(cb) {
+    del(libsRoot + "lodash/**", cb);
+
+    gulp.src("./node_modules/lodash/lodash.*")
+        .pipe(gulp.dest(libsRoot + "lodash"));
+
+    cb();
+});
+
 gulp.task("typescript:sources", function (cb) {
     var tsProject = ts.createProject(paths.sources.tsProject);
 
