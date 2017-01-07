@@ -20391,7 +20391,7 @@ declare module olx {
             /**
              * Image source URI.
              */
-            src: string;
+            src?: string;
         }
         /**
          * Specify radius for regular polygons, or radius1 and radius2 for stars.

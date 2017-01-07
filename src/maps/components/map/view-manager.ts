@@ -10,6 +10,17 @@ module snm.maps.components {
         private _olMap: ol.Map;
         private _eventBlock: adnw.common.EventBlock;
 
+        private _center: [number, number];
+
+        public get center(): [number, number] {
+            return this._center;
+        }
+
+        public set center(value: [number, number]) {
+            this._center = value;
+            this._olMap.getView().setCenter(value);
+        }
+
         private _scale: number;
 
         public get scale(): number {
@@ -20,6 +31,11 @@ module snm.maps.components {
 
         public get zoom(): number {
             return this._zoom;
+        }
+
+        public set zoom(value: number) {
+            this._zoom = value;
+            this._olMap.getView().setZoom(value);
         }
 
         constructor(map: snm.maps.components.Map, olMap: ol.Map, eventBlock: adnw.common.EventBlock) {
@@ -95,6 +111,7 @@ module snm.maps.components {
 
         //region View events
         private _resolutionChangeKey: ol.EventsKey;
+        private _centerChangeKey: ol.EventsKey;
 
         private _registerToViewEvents(view: ol.View): void {
             this._resolutionChangeKey = view.on("change:resolution", (ev: any) => {
@@ -110,16 +127,29 @@ module snm.maps.components {
                 this._zoom = view.getZoom();
                 this._eventBlock.dispatch("change:zoom", oldZoom, this._zoom);
             });
+
+            this._centerChangeKey = view.on("change:center", (ev: any) => {
+                let oldCenter: [number, number] = this._center;
+                let newCenter: [number, number] = ev.target.get(ev.key);
+
+                this._center = newCenter;
+                this._eventBlock.dispatch("change:center", oldCenter, newCenter);
+            });
         }
 
         private _unregisterFromViewEvents(view: ol.View): void {
             if (this._resolutionChangeKey) {
                 view.unByKey(this._resolutionChangeKey);
             }
+
+            if (this._centerChangeKey) {
+                view.unByKey(this._centerChangeKey);
+            }
         }
 
         private _setupView(view: ol.View): void {
             this._registerToViewEvents(view);
+            this._center = view.getCenter();
             this._scale = this._computeScale(view.getResolution(), view.getProjection());
             this._zoom = view.getZoom();
         }

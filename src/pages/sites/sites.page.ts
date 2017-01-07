@@ -2,11 +2,12 @@
 /// <reference path="../../ops/definitions-summary.ts" />
 /// <reference path="../../maps/components/map/map.ts" />
 /// <reference path="../../maps/components/map-toolbar/map-toolbar.component.ts" />
+/// <reference path="../../maps/services/icon-service.ts" />
 
 module snm.pages {
     // controller
     class Controller {
-        static $inject: string[] = ["$scope", "$log", "$http", "$location", "userSettings"];
+        static $inject: string[] = ["$scope", "$log", "$http", "$location", "userSettings", "iconService"];
 
         public communes: snm.ops.CommuneSummary[];
 
@@ -16,11 +17,14 @@ module snm.pages {
             return this._map;
         }
 
+        private _siteSource: ol.source.Vector;
+
         constructor(private $scope: ng.IScope,
                     private $log: ng.ILogService,
                     private $http: ng.IHttpService,
                     private $location: ng.ILocationService,
-                    private userSettings: snm.services.settings.UserSettings) {
+                    private userSettings: snm.services.settings.UserSettings,
+                    private iconService: snm.maps.services.IconService) {
             this._getSitesData();
         }
 
@@ -34,6 +38,14 @@ module snm.pages {
 
         private _setupMap(): void {
             this._map = new snm.maps.components.Map("map", this.userSettings);
+
+            this._siteSource = new ol.source.Vector();
+            let siteLayer: ol.layer.Vector = new ol.layer.Vector({
+                renderOrder: null,
+                source: this._siteSource
+            });
+
+            this._map.addLayer(siteLayer);
         }
 
         private _getSitesData(): void {
@@ -42,7 +54,15 @@ module snm.pages {
                     let map: Map<number, snm.ops.CommuneSummary> = new Map<number, snm.ops.CommuneSummary>();
                     let commune: snm.ops.CommuneSummary;
 
+                    //Clear site source if it exists
+                    if (this._siteSource) {
+                        this._siteSource.clear();
+                    }
+
                     result.data.forEach((site: snm.ops.SiteArcheoSummary) => {
+                        //Try to add site to map
+                        this._addSiteToMap(site);
+
                         //Check if CodeCommune is known
                         commune = map.get(site.codeCommune);
 
@@ -74,12 +94,34 @@ module snm.pages {
                     });
                 });
         }
+
+        private _addSiteToMap(site: snm.ops.SiteArcheoSummary): void {
+            if (!this._siteSource || !site) {
+                return;
+            }
+
+            if (typeof site.x !== "number" || typeof site.y !== "number") {
+                //Cannot display site without coordinates
+                return;
+            }
+
+            let coordinates: ol.Coordinate = [site.x, site.y];
+            coordinates = this._map.convertToProj(coordinates);
+
+            let siteFeature: ol.Feature = new ol.Feature({
+                geometry: new ol.geom.Point(coordinates)
+            });
+            siteFeature.setStyle(this.iconService.getSiteSummaryStyle(site));
+
+            this._siteSource.addFeature(siteFeature);
+        }
     }
 
     // component
     angular.module("snm.pages.sitesPage", [
         "ngRoute",
         "snm.maps.components.map-toolbar",
+        "snm.maps.services.iconService",
         "snm.ops.components.siteArcheoList"]).component("sitesPage", {
         templateUrl: '/app/pages/sites/sites.page.html',
         controller: Controller,

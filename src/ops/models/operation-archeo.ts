@@ -168,9 +168,9 @@ module snm.ops {
             this._planId = value;
         }
 
-        private _identifications: IdentificationSite[];
+        private _identifications: IdentificationOperation[];
 
-        public get identifications(): IdentificationSite[] {
+        public get identifications(): IdentificationOperation[] {
             return this._identifications;
         }
 

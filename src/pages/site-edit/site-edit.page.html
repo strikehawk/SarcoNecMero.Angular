@@ -3,7 +3,12 @@
         <div layout="row" flex>
             <md-input-container class="md-block site-reference">
                 <label>Référence</label>
-                <input ng-model="vm.site.reference">
+                <input  required md-maxlength="50" name="reference" ng-model="vm.site.reference">
+
+                <div ng-messages="siteForm.reference.$error" ng-show="siteForm.reference.$dirty">
+                    <div ng-message="required">La référence du site ne peut pas être vide.</div>
+                    <div ng-message="md-maxlength">La référence du site peut contenir 50 caractères maximum.</div>
+                </div>
             </md-input-container>
 
             <md-input-container class="md-block" flex>
@@ -21,7 +26,7 @@
     </md-content>
     <div id="content" flex>
         <site-ops-map site="vm.site" event-block="vm.eventBlock"
-                      on-pick="vm.onPickLocation(coordinates)"></site-ops-map>
+                      on-pick="vm.onPickLocation(coordinates)" layout-padding=""></site-ops-map>
     </div>
     <md-toolbar>
         <div class="md-toolbar-tools">

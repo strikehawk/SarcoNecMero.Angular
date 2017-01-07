@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/angular/angular.d.ts" />
+/// <reference path="../../typings/angular/angular.d.ts" />
 
 module snm.services.settings {
 
@@ -30,6 +30,16 @@ module snm.services.settings {
                     return result.data;
                 });
         }
+
+        /**
+         * The current center of the map, in EPSG:3857
+         */
+        public currentLocation: [number, number];
+
+        /**
+         * The current zoom level of the map.
+         */
+        public currentZoom: number;
 
         private _opsReferentialId: number;
 

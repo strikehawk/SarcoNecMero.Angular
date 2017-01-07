@@ -16,7 +16,7 @@ module snm.ops.details {
         debutOccupationId: number;
         finOccupationId: number;
         planId: number;
-        identifications: snm.ops.IdentificationSite[];
+        identifications: snm.ops.IdentificationOperation[];
     }
 
     export interface SiteArcheoData {

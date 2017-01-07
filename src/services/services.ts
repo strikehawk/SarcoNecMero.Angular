@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../typings/angular/angular.d.ts" />
 /// <reference path="../app-constants.ts" />
-/// <reference path="./settings/user-settings.ts" />
+/// <reference path="./user-settings.ts" />
 /// <reference path="./toast-service.ts" />
 
 module snm.services {

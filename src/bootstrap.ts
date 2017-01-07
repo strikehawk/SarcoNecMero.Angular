@@ -9,7 +9,7 @@
 /// <reference path="chrono/chrono.ts" />
 /// <reference path="pers/pers.ts" />
 
-/// <reference path="services/settings/user-settings.ts" />
+/// <reference path="services/user-settings.ts" />
 
 class Bootstrap {
     public static initialize(): void {

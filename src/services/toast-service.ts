@@ -6,6 +6,7 @@ module snm.services {
         showSimpleMsg(elementId: string, msg: string, hideDelay?: number): void;
         showSuccessfulSaveMsg(elementId: string, msg: string, hideDelay?: number): void;
         showErrorSaveMsg(elementId: string, msg: string, hideDelay?: number): void;
+        hide(): void;
     }
 
     class Service implements ToastService {
@@ -53,6 +54,10 @@ module snm.services {
             }
 
             this.$mdToast.show(options);
+        }
+
+        public hide(): void {
+            this.$mdToast.hide();
         }
     }
 

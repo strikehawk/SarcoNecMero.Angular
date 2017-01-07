@@ -20,6 +20,12 @@ declare module snm.ops {
     export interface IdentificationSite {
         referentielId: number;
         reference: string;
+        nom: string;
+    }
+
+    export interface IdentificationOperation {
+        referentielId: number;
+        reference: string;
     }
 
     export interface SiteArcheoData {
@@ -48,7 +54,7 @@ declare module snm.ops {
         debutOccupationId: number;
         finOccupationId: number;
         planId: number;
-        identifications: IdentificationSite[];
+        identifications: IdentificationOperation[];
     }
 
     export interface IDepartement extends DepartementData, snm.services.dal.IEntity<number> {

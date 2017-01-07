@@ -3,13 +3,29 @@
 /// <reference path="../../../../typings/angular-material/angular-material.d.ts" />
 /// <reference path="../../../common/event-block.ts" />
 /// <reference path="../../definitions-details.ts" />
+/// <reference path="../../../services/user-settings.ts" />
+/// <reference path="../../../maps/services/icon-service.ts" />
 
 module snm.ops.components {
     // controller
     class Controller {
-        static $inject: string[] = ["$scope", "$log", "userSettings", "$mdToast"];
+        static $inject: string[] = ["$scope", "$log", "$mdToast", "userSettings", "iconService"];
 
-        public site: snm.ops.details.SiteArcheo;
+        private _site: snm.ops.details.SiteArcheo;
+
+        public get site(): snm.ops.details.SiteArcheo {
+            return this._site;
+        }
+
+        public set site(value: snm.ops.details.SiteArcheo) {
+            this._site = value;
+            this._addSiteToMap();
+
+            if (this._map) {
+                this._map.center = this._map.convertToProj([this._site.x, this._site.y]);
+            }
+        }
+
         public eventBlock: adnw.common.EventBlock;
         public onPick: (coordinates: any) => void;
 
@@ -19,10 +35,14 @@ module snm.ops.components {
             return this._map;
         }
 
+        private _siteSource: ol.source.Vector;
+        private _siteFeature: ol.Feature;
+
         constructor(private $scope: ng.IScope,
                     private $log: ng.ILogService,
+                    private $mdToast: angular.material.MDToastService,
                     private userSettings: snm.services.settings.UserSettings,
-                    private $mdToast: angular.material.MDToastService) {
+                    private iconService: snm.maps.services.IconService) {
         }
 
         public $postLink(): void {
@@ -31,11 +51,46 @@ module snm.ops.components {
             if (this.eventBlock) {
                 this.eventBlock.on("center", this._onCenter.bind(this));
                 this.eventBlock.on("pickLocation", this._onPickLocation.bind(this));
+                this.eventBlock.on("refreshLocation", this._onRefreshLocation.bind(this));
             }
         }
 
         private _setupMap(): void {
             this._map = new snm.maps.components.Map("map", this.userSettings);
+
+            this._siteSource = new ol.source.Vector();
+            let siteLayer: ol.layer.Vector = new ol.layer.Vector({
+                renderOrder: null,
+                source: this._siteSource
+            });
+
+            this._map.addLayer(siteLayer);
+
+            this._addSiteToMap();
+
+            if (this._site) {
+                this._map.center = this._map.convertToProj([this._site.x, this._site.y]);
+            }
+        }
+
+        private _addSiteToMap(): void {
+            if (!this._siteSource || !this._site) {
+                return;
+            }
+
+            let coordinates: ol.Coordinate = [this._site.x, this._site.y];
+            coordinates = this._map.convertToProj(coordinates);
+
+            if (!this._siteFeature) {
+                this._siteFeature = new ol.Feature({
+                    geometry: new ol.geom.Point(coordinates)
+                });
+                this._siteFeature.setStyle(this.iconService.getSiteDetailsStyle(this._site));
+
+                this._siteSource.addFeature(this._siteFeature);
+            } else {
+                this._siteFeature.setGeometry(new ol.geom.Point(coordinates));
+            }
         }
 
         private _onCenter(oldValue?: ol.Coordinate, newValue?: ol.Coordinate): void {
@@ -60,12 +115,17 @@ module snm.ops.components {
 
             //Start interaction
             this._map.pickLocation().then((value: ol.Coordinate) => {
-                this.onPick({coordinates: this._map.convertFromProj(value)});
+                let coordinates: ol.Coordinate = this._map.convertFromProj(value);
+                this.onPick({coordinates: coordinates});
                 dispose();
             }, (reason: any) => {
                 this.$log.debug(reason);
                 dispose();
             });
+        }
+
+        private _onRefreshLocation(oldValue?: any, newValue?: any): void {
+            this._addSiteToMap();
         }
     }
 

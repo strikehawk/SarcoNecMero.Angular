@@ -4,7 +4,7 @@
 /// <reference path="./view-manager.ts" />
 /// <reference path="./interactions/cursor-position.ts" />
 /// <reference path="./interactions/location-picker.ts" />
-/// <reference path="../../../services/settings/user-settings.ts" />
+/// <reference path="../../../services/user-settings.ts" />
 
 module snm.maps.components {
     export class Map {
@@ -18,12 +18,24 @@ module snm.maps.components {
         private _viewManager: snm.maps.components.ViewManager;
         private _eventBlock: adnw.common.EventBlock;
 
+        public get center(): [number, number] {
+            return this._viewManager.center;
+        }
+
+        public set center(value: [number, number]) {
+            this._viewManager.center = value;
+        }
+
         public get scale(): number {
             return this._viewManager.scale;
         }
 
         public get zoom(): number {
             return this._viewManager.zoom;
+        }
+
+        public set zoom(value: number) {
+            this._viewManager.zoom = value;
         }
 
         private _cursor: [number, number];
@@ -81,6 +93,22 @@ module snm.maps.components {
             return picker.promise;
         }
 
+        public addLayer(layer: ol.layer.Layer): void {
+            if (!layer) {
+                return;
+            }
+
+            this._map.addLayer(layer);
+        }
+
+        public removeLayer(layer: ol.layer.Layer): void {
+            if (!layer) {
+                return;
+            }
+
+            this._map.removeLayer(layer);
+        }
+
         public on(event: string, callback: adnw.common.EventCallback<any>): void {
             if (!event) {
                 throw new Error("Event cannot be empty.");
@@ -106,10 +134,35 @@ module snm.maps.components {
         }
 
         private _createMap(elementId: string): ol.Map {
+            let center: [number, number];
+
+            //Check if a current location is defined
+            if (this.userSettings.currentLocation) {
+                //Already in target projection
+                center = this.userSettings.currentLocation;
+            }
+
+            //Check if home location can be used
+            if (!center && this.userSettings.homeLocation) {
+                center = this.convertToProj(this.userSettings.homeLocation);
+            }
+
+            let zoom: number;
+
+            //Check if a current zoom is defined
+            if (this.userSettings.currentZoom) {
+                zoom = this.userSettings.currentZoom;
+            }
+
+            //Check if start zoom can be used
+            if (typeof zoom !== "number" && typeof this.userSettings.startZoom === "number") {
+                zoom = this.userSettings.startZoom;
+            }
+
             let view: ol.View = new ol.View({
                 projection: this._PROJ,
-                center: this.userSettings.homeLocation ? this.convertToProj(this.userSettings.homeLocation) : [0, 0],
-                zoom: this.userSettings.startZoom ? this.userSettings.startZoom : 1
+                center: center ? center : [0, 0],
+                zoom: typeof zoom === "number" ? zoom : 1
             });
 
             let layers: ol.layer.Base[] = [

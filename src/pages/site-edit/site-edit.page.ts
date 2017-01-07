@@ -52,9 +52,7 @@ module snm.pages {
 
             $http.get<snm.ops.details.SiteArcheo>("api/ops/sites/" + id)
                 .then((result: ng.IHttpPromiseCallbackArg<snm.ops.details.SiteArcheo>) => {
-                    this.site = new snm.ops.details.SiteArcheo();
-                    this.site.updateFrom(result.data);
-                    this._originalSite = this.site.clone();
+                    this._processSite(result.data);
                 });
 
             this._eventBlock = new adnw.common.EventBlock();
@@ -71,9 +69,7 @@ module snm.pages {
                     } else {
                         this.toastService.showSuccessfulSaveMsg(this._toastTarget, "Données enregistrées");
 
-                        this.site = new snm.ops.details.SiteArcheo();
-                        this.site.updateFrom(result.data);
-                        this._originalSite = this.site.clone();
+                        this._processSite(result.data);
                     }
                 }, (reason: any) => {
                     this.toastService.showErrorSaveMsg(this._toastTarget, reason);
@@ -96,6 +92,7 @@ module snm.pages {
                     let commune: snm.ops.details.Commune = result.data;
                     this.site.x = x;
                     this.site.y = y;
+                    this._refreshSiteLocation();
 
                     if (commune) {
                         this.site.codeCommune = commune.code;
@@ -123,6 +120,18 @@ module snm.pages {
 
             //Prevent navigation by default since we'll handle it once the user selects a dialog option
             event.preventDefault();
+        }
+
+        private _processSite(data: snm.ops.details.SiteArcheoData): void {
+            this.site = new snm.ops.details.SiteArcheo();
+            this.site.updateFrom(data);
+            this._originalSite = this.site.clone();
+
+            this._refreshSiteLocation();
+        }
+
+        private _refreshSiteLocation(): void {
+            this._eventBlock.dispatch("refreshLocation", null, null);
         }
 
         private _showConfirm(): angular.IPromise<any> {

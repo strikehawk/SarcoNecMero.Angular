@@ -1,5 +1,5 @@
 /// <reference path="../../../../typings/angular/angular.d.ts" />
-/// <reference path="../../../services/settings/user-settings.ts" />
+/// <reference path="../../../services/user-settings.ts" />
 /// <reference path="../map/map.ts" />
 
 module snm.maps.components {
@@ -24,10 +24,13 @@ module snm.maps.components {
 
         public set map(value: snm.maps.components.Map) {
             this._map = value;
-            this._registerToMapEvents(value);
+            if (value) {
+                this._registerToMapEvents(value);
+            }
         }
 
-        constructor(private $scope: ng.IScope, private userSettings: snm.services.settings.UserSettings) {
+        constructor(private $scope: ng.IScope,
+                    private userSettings: snm.services.settings.UserSettings) {
         }
 
         public flyToHome(): void {
@@ -49,10 +52,22 @@ module snm.maps.components {
             map.on("change:scale", () => {
                 this._onChange();
             });
-            map.on("change:zoom", () => {
+            map.on("change:zoom", (oldValue: number, newValue: number) => {
+                if (this.userSettings) {
+                    this.userSettings.currentZoom = newValue;
+                }
+
                 this._onChange();
             });
             map.on("change:cursorPosition", () => {
+                this._onChange();
+            });
+
+            map.on("change:center", (oldValue: [number, number], newValue: [number, number]) => {
+                if (this.userSettings) {
+                    this.userSettings.currentLocation = newValue;
+                }
+
                 this._onChange();
             });
         }
@@ -62,7 +77,7 @@ module snm.maps.components {
                 return;
             }
 
-            this.$scope.$apply();
+            this.$scope.$applyAsync();
         }
     }
 
