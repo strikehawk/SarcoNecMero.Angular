@@ -17,6 +17,11 @@ module snm.services.settings {
          * The starting center of the map, in EPSG:2154.
          */
         homeLocation: [number, number];
+
+        /**
+         * The root URL of the illustration storage container.
+         */
+        illustrationStorageRootUrl: string;
     }
 
     export class UserSettings {
@@ -80,11 +85,25 @@ module snm.services.settings {
             this._homeLocation = value;
         }
 
+        private _illustrationStorageRootUrl: string;
+
+        /**
+         * The root URL of the illustration storage container.
+         */
+        public get illustrationStorageRootUrl(): string {
+            return this._illustrationStorageRootUrl;
+        }
+
+        public set illustrationStorageRootUrl(value: string) {
+            this._illustrationStorageRootUrl = value;
+        }
+
         constructor() {
             if (UserSettings.defaultSettings) {
                 this._opsReferentialId = UserSettings.defaultSettings.opsReferentialId;
                 this._startZoom = UserSettings.defaultSettings.startZoom;
                 this._homeLocation = UserSettings.defaultSettings.homeLocation;
+                this._illustrationStorageRootUrl = UserSettings.defaultSettings.illustrationStorageRootUrl;
             }
         }
     }
