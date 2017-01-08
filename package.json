@@ -19,6 +19,7 @@
     "run-sequence": "latest"
   },
   "dependencies": {
+    "@types/es6-shim": "^0.31.32",
     "@types/lodash": "latest",
     "lodash": "^4.17.4",
     "openlayers": "latest"

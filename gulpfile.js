@@ -96,7 +96,7 @@ gulp.task("copy", function(cb) {
     cb();
 });
 
-gulp.task("copyLibs:OL3", function(cb) {
+gulp.task("copyLibs:openlayers", function(cb) {
     del(libsRoot + "ol3/**", cb);
 
     gulp.src("./node_modules/openlayers/dist/*.*")
@@ -110,6 +110,15 @@ gulp.task("copyLibs:lodash", function(cb) {
 
     gulp.src("./node_modules/lodash/lodash.*")
         .pipe(gulp.dest(libsRoot + "lodash"));
+
+    cb();
+});
+
+gulp.task("copyLibs:es6-shim", function(cb) {
+    del(libsRoot + "es6-shim/**", cb);
+
+    gulp.src("./node_modules/es6-shim/es6-shim.*")
+        .pipe(gulp.dest(libsRoot + "es6-shim"));
 
     cb();
 });
