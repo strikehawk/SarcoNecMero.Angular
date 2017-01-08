@@ -1,3 +1,3 @@
-/*.md-nav-bar .md-nav-item a, .md-nav-bar .md-button._md-nav-button.md-unselected a  {*/
-    /*color: #ffffff;*/
-/*}*/
+md-nav-bar .md-button._md-nav-button.md-unselected {
+    color: rgba(255, 255, 255, 0.54);
+}
