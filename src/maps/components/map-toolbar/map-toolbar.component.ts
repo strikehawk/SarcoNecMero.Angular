@@ -29,6 +29,8 @@ module snm.maps.components {
             }
         }
 
+        public showHome: boolean;
+
         constructor(private $scope: ng.IScope,
                     private userSettings: snm.services.settings.UserSettings) {
         }
@@ -89,7 +91,8 @@ module snm.maps.components {
         controller: Controller,
         controllerAs: "vm",
         bindings: {
-            map: "<"
+            map: "<",
+            showHome: "="
         }
     });
 }

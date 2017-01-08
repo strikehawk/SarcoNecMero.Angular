@@ -1,8 +1,16 @@
+md-toolbar.map-toolbar {
+    min-height: 40px;
+}
+
 .map-toolbar span {
     font-size: 14px;
 }
 
+.map-toolbar .md-toolbar-tools {
+    max-height: 40px;
+}
+
 .map-toolbar .zoomScale {
-    width: 130px;
+    width: 135px;
     cursor: pointer;
 }

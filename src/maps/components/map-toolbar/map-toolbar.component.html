@@ -1,6 +1,6 @@
-<md-toolbar>
-    <div class="md-toolbar-tools map-toolbar">
-        <md-button class="md-icon-button" aria-label="Point de départ" ng-click="vm.flyToHome()">
+<md-toolbar class="map-toolbar">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Point de départ" ng-click="vm.flyToHome()" ng-show="vm.showHome">
             <img src="assets/img/ic_home_white_24dp.png">
             <md-tooltip>
                 Centrer la carte sur le point de départ
