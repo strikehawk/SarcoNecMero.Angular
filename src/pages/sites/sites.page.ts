@@ -36,6 +36,15 @@ module snm.pages {
             this.$location.path("/sites/" + siteId);
         }
 
+        public onCenterOnSite(x: number, y: number): void {
+            if (!this._map) {
+                return;
+            }
+
+            let coordinates: ol.Coordinate = this._map.convertToProj([x, y]);
+            this._map.flyTo(coordinates);
+        }
+
         private _setupMap(): void {
             this._map = new snm.maps.components.Map("map", this.userSettings);
 

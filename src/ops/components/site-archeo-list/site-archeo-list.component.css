@@ -2,16 +2,26 @@
     padding: 0;
 }
 
-.site-archeo-list .site-archeo {
+.site-archeo-list .commune {
     font-weight: bold;
     font-size: 12px;
 }
 
-.site-archeo-list .operation-archeo .md-list-item-text {
+.site-archeo-list .commune .siteCount {
+    margin-left: 10px;
+}
+
+.site-archeo-list .site-archeo .md-list-item-text {
     position: relative;
     z-index: 1;
 }
 
-.site-archeo-list .operation-archeo h3 {
+.site-archeo-list  md-list-item .md-no-style.md-button {
+    font-size: 12px;
+    line-height: inherit;
+}
+
+.site-archeo-list .site-archeo .reference-site {
     font-weight: bold;
+    margin-right: 10px;
 }

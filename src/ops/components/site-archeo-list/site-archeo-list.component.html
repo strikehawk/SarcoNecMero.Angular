@@ -1,14 +1,30 @@
 ﻿<md-list class="md-dense site-archeo-list">
-    <div ng-repeat="commune in $ctrl.communes" class="md-whiteframe-1dp">
-        <md-toolbar class="md-no-sticky md-primary md-toolbar-tools site-archeo">
-            <div class="site-archeo">
-                <span>{{commune.nom}}</span>
-                <span ng-if="commune.departement"> ({{commune.departement}})</span>
+    <div ng-repeat="commune in vm.communes" class="md-whiteframe-1dp">
+        <md-toolbar class="md-no-sticky md-primary md-toolbar-tools commune">
+            <div layout="row" flex>
+                <div flex>
+                    <span>{{commune.nom}}</span>
+                    <span ng-if="commune.departement"> ({{commune.departement}})</span>
+                </div>
+                <span class="siteCount">{{commune.sites.length}}</span>
             </div>
         </md-toolbar>
-        <md-list-item class="md-2-line md-long-text operation-archeo" ng-repeat="site in commune.sites"
-                      ng-click="$ctrl.selectSite({siteId: site.id})">
-            <span>{{site.reference}} {{site.localisation}}</span>
+        <md-list-item class="md-2-line md-long-text site-archeo" ng-repeat="site in commune.sites"
+                      ng-click="vm.selectSite({siteId: site.id})" layout="row">
+            <div flex layout="row" layout-align="none center">
+                <span class="reference-site">{{site.identifications[0].reference}}</span>
+                <span flex>{{site.reference}} {{site.localisation}}</span>
+            </div>
+
+            <div ng-if="site.x != null && site.y != null">
+                <md-button class="md-icon-button" aria-label="Centrer sur la localisation"
+                           ng-click="vm.centerOnSite({x: site.x, y: site.y})">
+                    <img src="assets/img/ic_center_focus_strong_black_24dp.png">
+                    <md-tooltip>
+                        Centrer sur la localisation
+                    </md-tooltip>
+                </md-button>
+            </div>
         </md-list-item>
         <md-divider></md-divider>
     </div>
