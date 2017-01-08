@@ -19,11 +19,9 @@ module snm.ops.components {
 
         public set site(value: snm.ops.details.SiteArcheo) {
             this._site = value;
-            this._addSiteToMap();
 
-            if (this._map) {
-                this._map.center = this._map.convertToProj([this._site.x, this._site.y]);
-            }
+            this._addSiteToMap();
+            this._centerOnSite();
         }
 
         public eventBlock: adnw.common.EventBlock;
@@ -67,10 +65,7 @@ module snm.ops.components {
             this._map.addLayer(siteLayer);
 
             this._addSiteToMap();
-
-            if (this._site) {
-                this._map.center = this._map.convertToProj([this._site.x, this._site.y]);
-            }
+            this._centerOnSite();
         }
 
         private _addSiteToMap(): void {
@@ -90,6 +85,12 @@ module snm.ops.components {
                 this._siteSource.addFeature(this._siteFeature);
             } else {
                 this._siteFeature.setGeometry(new ol.geom.Point(coordinates));
+            }
+        }
+
+        private _centerOnSite(): void {
+            if (this._site && typeof this._site.x === "number" && typeof this._site.y === "number") {
+                this._map.center = this._map.convertToProj([this._site.x, this._site.y]);
             }
         }
 
