@@ -8,6 +8,7 @@
 /// <reference path="ops/ops.ts" />
 /// <reference path="chrono/chrono.ts" />
 /// <reference path="pers/pers.ts" />
+/// <reference path="sarcos/sarcos.ts" />
 
 /// <reference path="services/user-settings.ts" />
 
@@ -21,6 +22,7 @@ class Bootstrap {
                 snm.AppConstants.CHRONO_MODULE_NAME,
                 snm.AppConstants.OPS_MODULE_NAME,
                 snm.AppConstants.PERS_MODULE_NAME,
+                snm.AppConstants.SARCOS_MODULE_NAME,
                 "ngRoute",
                 "ngMaterial",
                 "ngMessages"

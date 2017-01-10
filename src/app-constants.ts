@@ -36,5 +36,9 @@
 		public static get CHRONO_MODULE_NAME(): string {
 			return this.CORE_MODULE_NAME + ".chrono";
 		}
+
+		public static get SARCOS_MODULE_NAME(): string {
+			return this.CORE_MODULE_NAME + ".sarcos";
+		}
 	}
 }

@@ -1,4 +1,4 @@
-<div layout="column" ng-cloak="" class="md-inline-form site-page">
+<div layout="column" ng-cloak="" class="md-inline-form site-page" layout="column" flex>
     <md-content md-theme="docs-dark" layout="row" class="site-header">
         <div class="md-block data-container site-reference">
             <label>Référence</label>
@@ -16,6 +16,20 @@
             <md-button md-no-ink class="md-primary" ng-click="vm.edit()">Editer</md-button>
         </div>
     </md-content>
-
-    <site-ops-map site="vm.site" event-block="vm.eventBlock" layout-padding=""></site-ops-map>
+    <md-content layout="column" flex>
+        <md-tabs flex>
+            <md-tab id="localisation">
+                <md-tab-label>Localisation</md-tab-label>
+                <md-tab-body>
+                    <site-ops-map site="vm.site" event-block="vm.eventBlock" layout-padding=""></site-ops-map>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="sarcophages">
+                <md-tab-label>Sarcophages</md-tab-label>
+                <md-tab-body>
+                    <panneaux-site-list site-id="vm.site.id"></panneaux-site-list>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-content>
 </div>

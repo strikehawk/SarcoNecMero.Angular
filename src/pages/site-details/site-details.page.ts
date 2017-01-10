@@ -4,6 +4,7 @@
 /// <reference path="../../ops/definitions-details.ts" />
 /// <reference path="../../ops/components/site-localisation/site-localisation.component.ts" />
 /// <reference path="../../ops/components/site-ops-map/site-ops-map.component.ts" />
+/// <reference path="../../sarcos/components/panneaux-site-list/panneaux-site-list.component.ts" />
 
 module snm.pages {
     interface IRouteParams extends ng.route.IRouteParamsService {
