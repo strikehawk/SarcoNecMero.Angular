@@ -9,16 +9,31 @@ module snm.ops.components {
         static $inject: string[] = ["$scope", "$log", "userSettings"];
 
         public site: snm.ops.details.SiteArcheo;
+
+        public get localisation(): string {
+            if (!this.site || !this.site.commune) {
+                return "Non renseigné";
+            } else {
+                return `${this.site.commune}
+                        ${typeof this.site.departement === "number" ? " (" + this.site.departement + ")" : ""}`;
+            }
+        }
+
+        public get coordinates(): string {
+            if (!this.site || typeof this.site.x !== "number" || typeof this.site.y !== "number") {
+                return "Non renseigné";
+            } else {
+                return `X: ${this.site.x.toLocaleString("fr-FR", {minimumFractionDigits: 0})} 
+                        Y: ${this.site.y.toLocaleString("fr-FR", {minimumFractionDigits: 0})}`;
+            }
+        }
+
         public allowEdition: boolean;
         public eventBlock: adnw.common.EventBlock;
 
         constructor(private $scope: ng.IScope,
                     private $log: ng.ILogService,
                     private userSettings: snm.services.settings.UserSettings) {
-        }
-
-        public centerOnLocation(): void {
-            this.eventBlock.dispatch("center", null, [this.site.x, this.site.y]);
         }
 
         public pickLocation(): void {

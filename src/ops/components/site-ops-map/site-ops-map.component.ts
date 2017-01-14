@@ -53,6 +53,19 @@ module snm.ops.components {
             }
         }
 
+        public centerOnSite(): void {
+            if (!this._map || !this.site) {
+                return;
+            }
+
+            if (typeof this.site.x !== "number" || typeof this.site.y !== "number") {
+                //Site has no location defined
+                return;
+            }
+
+            this._map.flyTo(this._map.convertToProj([this.site.x, this.site.y]));
+        }
+
         private _setupMap(): void {
             this._map = new snm.maps.components.Map("map", this.userSettings);
 
@@ -69,6 +82,10 @@ module snm.ops.components {
         }
 
         private _addSiteToMap(): void {
+            if (!this._map) {
+                return;
+            }
+
             if (!this._siteSource || !this._site) {
                 return;
             }
@@ -89,18 +106,30 @@ module snm.ops.components {
         }
 
         private _centerOnSite(): void {
+            if (!this._map) {
+                return;
+            }
+
             if (this._site && typeof this._site.x === "number" && typeof this._site.y === "number") {
                 this._map.center = this._map.convertToProj([this._site.x, this._site.y]);
             }
         }
 
         private _onCenter(oldValue?: ol.Coordinate, newValue?: ol.Coordinate): void {
+            if (!this._map) {
+                return;
+            }
+
             if (newValue) {
                 this._map.flyTo(this._map.convertToProj(newValue));
             }
         }
 
         private _onPickLocation(oldValue?: any, newValue?: any): void {
+            if (!this._map) {
+                return;
+            }
+
             //Show toast
             this.$mdToast.show({
                 hideDelay: 0,

@@ -1,27 +1,27 @@
 <md-toolbar class="map-toolbar">
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Point de départ" ng-click="vm.flyToHome()" ng-show="vm.showHome">
+        <md-button class="md-icon-button" aria-label="Point de départ" ng-click="vm.goToHome()" ng-show="vm.showHome">
             <img src="assets/img/ic_home_white_24dp.png">
-            <md-tooltip>
+            <md-tooltip md-direction="top">
                 Centrer la carte sur le point de départ
             </md-tooltip>
         </md-button>
         <span>
             X: {{vm.map.cursor[0] | number:0}} Y: {{vm.map.cursor[1] | number:0}}
-            <md-tooltip>
+            <md-tooltip md-direction="top">
                 Coordonnées du curseur en Lambert 93
             </md-tooltip>
         </span>
         <span flex></span>
         <span class="zoomScale" ng-show="vm.showScale" ng-click="vm.toggleScale()">
             Echelle 1 : {{vm.map.scale | number:0}}
-            <md-tooltip>
+            <md-tooltip md-direction="top">
                 Cliquez pour afficher le niveau de zoom
             </md-tooltip>
         </span>
         <span class="zoomScale" ng-show="!vm.showScale" ng-click="vm.toggleScale()">
             Zoom {{vm.map.zoom | number:0}}
-            <md-tooltip>
+            <md-tooltip md-direction="top">
                 Cliquez pour afficher l'échelle
             </md-tooltip>
         </span>

@@ -32,6 +32,13 @@ module snm.pages {
             setTimeout(() => this._setupMap());
         }
 
+        public flyToHome(): void {
+            let home: ol.Coordinate = this._map.convertToProj(this.userSettings.homeLocation);
+            this._map.flyTo(home, () => {
+                this.$scope.$apply();
+            });
+        }
+
         public onSelectSite(siteId: number): void {
             this.$location.path("/sites/" + siteId);
         }
@@ -55,6 +62,9 @@ module snm.pages {
             });
 
             this._map.addLayer(siteLayer);
+
+            //Try to display sites, if they're already present
+            this._displaySitesOnMap();
         }
 
         private _getSitesData(): void {
@@ -105,6 +115,10 @@ module snm.pages {
         }
 
         private _addSiteToMap(site: snm.ops.SiteArcheoSummary): void {
+            if (!this._map) {
+                return;
+            }
+
             if (!this._siteSource || !site) {
                 return;
             }
@@ -123,6 +137,21 @@ module snm.pages {
             siteFeature.setStyle(this.iconService.getSiteSummaryStyle(site));
 
             this._siteSource.addFeature(siteFeature);
+        }
+
+        private _displaySitesOnMap() {
+            if (!this._map || !this.communes) {
+                return;
+            }
+
+            this.communes.forEach((c: snm.ops.CommuneSummary) => {
+                if (c.sites) {
+                    c.sites.forEach((s: snm.ops.SiteArcheoSummary) => {
+                        //Try to add site to map
+                        this._addSiteToMap(s);
+                    });
+                }
+            });
         }
     }
 

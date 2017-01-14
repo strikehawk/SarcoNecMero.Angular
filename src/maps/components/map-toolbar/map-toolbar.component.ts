@@ -29,17 +29,14 @@ module snm.maps.components {
             }
         }
 
-        public showHome: boolean;
+        public get showHome(): boolean {
+            return !!this.goToHome;
+        }
+
+        public goToHome: () => void;
 
         constructor(private $scope: ng.IScope,
                     private userSettings: snm.services.settings.UserSettings) {
-        }
-
-        public flyToHome(): void {
-            let home: ol.Coordinate = this._map.convertToProj(this.userSettings.homeLocation);
-            this._map.flyTo(home, () => {
-                this.$scope.$apply();
-            });
         }
 
         public toggleScale(): void {
@@ -92,7 +89,7 @@ module snm.maps.components {
         controllerAs: "vm",
         bindings: {
             map: "<",
-            showHome: "="
+            goToHome: "&?"
         }
     });
 }
