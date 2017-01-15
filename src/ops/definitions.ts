@@ -26,6 +26,7 @@ declare module snm.ops {
     export interface IdentificationOperation {
         referentielId: number;
         reference: string;
+        nom: string;
     }
 
     export interface SiteArcheoData {

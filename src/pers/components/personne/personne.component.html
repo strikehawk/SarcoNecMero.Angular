@@ -1,1 +1,8 @@
-<span>{{vm.personne.prenom}} {{vm.personne.nom}}</span>
+<div ng-if="!vm.personne.nomComplet">
+{{vm.personne.nom | uppercase}}<span ng-if="vm.personne.prenom">, {{vm.personne.prenom}}</span>
+<span ng-if="vm.personne.autresPrenoms"> ({{vm.personne.autresPrenoms}})</span>
+<span ng-if="vm.personne.suffixe">, {{vm.personne.suffixe}}</span>
+</div>
+<div ng-if="vm.personne.nomComplet">
+    {{vm.personne.nomComplet}}
+</div>

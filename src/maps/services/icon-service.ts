@@ -98,7 +98,7 @@ module snm.maps.services {
             return style;
         }
 
-        private _getSiteSummaryCanvas(site: snm.ops.SiteArcheoSummary) {
+        private _getSiteSummaryCanvas(site: snm.ops.SiteArcheoSummary|snm.ops.details.SiteArcheo) {
             let content: string = site.identifications[0].reference;
 
             let width: number = this._getWidth(content);

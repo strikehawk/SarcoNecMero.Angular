@@ -5,15 +5,7 @@ module snm.pers.components {
     class PersonneController {
         static $inject: string[] = ["$scope"];
 
-        private _personne: IPersonne;
-
-        public get personne(): IPersonne {
-            return this._personne;
-        }
-
-        public set personne(value: IPersonne) {
-            this._personne = value;
-        }
+        public personne: snm.pers.PersonneSummary;
 
         constructor(private $scope: ng.IScope) {
 

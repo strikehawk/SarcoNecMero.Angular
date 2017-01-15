@@ -4,8 +4,22 @@
     </div>
 </md-toolbar>
 <md-list class="md-dense site-operations-list">
-    <md-list-item ng-repeat="op in vm.operations" ng-click="vm.goToOperation(op.id)" class="noright">
-        <p>{{op.localisation}}</p>
+    <md-list-item ng-repeat="op in vm.operations | orderBy:'debutTravaux'" ng-click="vm.goToOperation(op.id)">
+        <div layout="column" flex>
+            <div layout="row">
+                <div flex>{{op.localisation}}</div>
+                <personne personne="op.responsable" flex></personne>
+            </div>
+            <div class="duree-travaux">
+                <div ng-if="op.debutTravaux && op.finTravaux">
+                    De {{op.debutTravaux | date : 'MMMM y'}} à {{op.finTravaux | date : 'MMMM y'}}
+                </div>
+                <div ng-if="!op.debutTravaux || !op.finTravaux">
+                    Date inconnue
+                </div>
+            </div>
+        </div>
+
         <md-button class="md-icon-button" aria-label="Centrer sur la localisation"
                    ng-click="vm.centerOnSite({x: site.x, y: site.y})">
             <img src="assets/img/ic_center_focus_strong_black_24dp.png">
@@ -13,5 +27,6 @@
                 Centrer sur la localisation
             </md-tooltip>
         </md-button>
+        <md-divider ng-if="!$last"></md-divider>
     </md-list-item>
 </md-list>

@@ -2,6 +2,7 @@
 /// <reference path="../../../../typings/angular/angular-route.d.ts" />
 /// <reference path="../../../common/event-block.ts" />
 /// <reference path="../../definitions-summary.ts" />
+/// <reference path="../../../pers/components/personne/personne.component.ts" />
 
 module snm.ops.components {
     // controller
@@ -34,7 +35,10 @@ module snm.ops.components {
     }
 
     // component
-    angular.module("snm.ops.components.siteOperations", ["ngRoute"])
+    angular.module("snm.ops.components.siteOperations", [
+        "ngRoute",
+        "snm.pers.components.personne"
+        ])
         .component("siteOperations", {
             templateUrl: '/app/ops/components/site-operations/site-operations.component.html',
             controller: Controller,

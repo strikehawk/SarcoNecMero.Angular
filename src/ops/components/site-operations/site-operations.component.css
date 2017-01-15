@@ -13,3 +13,13 @@ md-toolbar.site-operations {
 .site-operations-list {
     padding: 0;
 }
+
+.site-operations-list personne {
+    text-align: end;
+    font-size: 12px;
+}
+
+.site-operations-list .duree-travaux {
+    font-size: 12px;
+    line-height: 18px;
+}

@@ -1,16 +1,18 @@
 /// <reference path="./definitions.ts" />
+/// <reference path="../pers/definitions-summary.ts" />
 
 module snm.ops {
     export interface OperationArcheoSummary {
         id: number;
+        siteId: number;
         codeCommune: number;
         commune: string;
         departement: number;
         x: number;
         y: number;
         localisation: string;
-        responsableId: number;
-        organismeId: number;
+        responsable: snm.pers.PersonneSummary;
+        organisme: string;
         debutTravaux: string;
         finTravaux: string;
         debutOccupationId: number;
