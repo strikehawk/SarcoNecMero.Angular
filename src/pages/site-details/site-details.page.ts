@@ -4,6 +4,7 @@
 /// <reference path="../../ops/definitions-details.ts" />
 /// <reference path="../../ops/components/site-localisation/site-localisation.component.ts" />
 /// <reference path="../../ops/components/site-ops-map/site-ops-map.component.ts" />
+/// <reference path="../../ops/components/site-operations/site-operations.component.ts" />
 /// <reference path="../../sarcos/components/panneaux-site-list/panneaux-site-list.component.ts" />
 
 module snm.pages {
@@ -15,6 +16,7 @@ module snm.pages {
     class Controller {
         static $inject: string[] = ["$scope", "$log", "$http", "$location", "userSettings", "$routeParams"];
 
+        public siteId: number;
         public site: snm.ops.details.SiteArcheo;
 
         private _eventBlock: adnw.common.EventBlock;
@@ -29,9 +31,12 @@ module snm.pages {
                     private $location: ng.ILocationService,
                     private userSettings: snm.services.settings.UserSettings,
                     private $routeParams: IRouteParams) {
-            let id: number = $routeParams.siteId;
+        }
 
-            $http.get<snm.ops.details.SiteArcheo>("api/ops/sites/" + id)
+        public $onInit(): void {
+            this.siteId = this.$routeParams.siteId;
+
+            this.$http.get<snm.ops.details.SiteArcheo>("api/ops/sites/" + this.siteId)
                 .then((result: ng.IHttpPromiseCallbackArg<snm.ops.details.SiteArcheo>) => {
                     this.site = result.data;
                 });

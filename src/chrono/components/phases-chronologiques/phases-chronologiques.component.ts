@@ -37,9 +37,13 @@ module snm.chrono.components {
             this._fin = value;
         }
 
-        constructor(private $scope: ng.IScope, private dbContext: snm.services.dal.DbContext) {
+        constructor(private $scope: ng.IScope,
+                    private dbContext: snm.services.dal.DbContext) {
+        }
+
+        public $onInit(): void {
             let repoPhaseChrono: snm.chrono.IPhaseChronologiqueSet =
-                <snm.chrono.IPhaseChronologiqueSet> dbContext.getRepository("PhaseChronologique");
+                <snm.chrono.IPhaseChronologiqueSet> this.dbContext.getRepository("PhaseChronologique");
             repoPhaseChrono.refresh().then(() => {
                 this.phases = repoPhaseChrono.getAll();
                 this.$scope.$applyAsync();

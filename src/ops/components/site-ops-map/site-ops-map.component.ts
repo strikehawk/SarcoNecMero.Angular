@@ -43,27 +43,34 @@ module snm.ops.components {
                     private iconService: snm.maps.services.IconService) {
         }
 
-        public $postLink(): void {
-            setTimeout(() => this._setupMap());
+        public $onInit(): void {
+            this.eventBlock.on("center", this._onCenter.bind(this));
+            this.eventBlock.on("pickLocation", this._onPickLocation.bind(this));
+            this.eventBlock.on("refreshLocation", this._onRefreshLocation.bind(this));
+        }
 
-            if (this.eventBlock) {
-                this.eventBlock.on("center", this._onCenter.bind(this));
-                this.eventBlock.on("pickLocation", this._onPickLocation.bind(this));
-                this.eventBlock.on("refreshLocation", this._onRefreshLocation.bind(this));
-            }
+        public $postLink(): void {
+            setTimeout(() => {
+                this._setupMap();
+
+                if (this._site) {
+                    this._addSiteToMap();
+                    this._centerOnSite();
+                }
+            });
         }
 
         public centerOnSite(): void {
-            if (!this._map || !this.site) {
+            if (!this._map || !this._site) {
                 return;
             }
 
-            if (typeof this.site.x !== "number" || typeof this.site.y !== "number") {
+            if (typeof this._site.x !== "number" || typeof this._site.y !== "number") {
                 //Site has no location defined
                 return;
             }
 
-            this._map.flyTo(this._map.convertToProj([this.site.x, this.site.y]));
+            this._map.flyTo(this._map.convertToProj([this._site.x, this._site.y]));
         }
 
         private _setupMap(): void {

@@ -1,0 +1,15 @@
+md-toolbar.site-operations {
+    min-height: 40px;
+}
+
+.site-operations span {
+    font-size: 14px;
+}
+
+.site-operations .md-toolbar-tools {
+    max-height: 40px;
+}
+
+.site-operations-list {
+    padding: 0;
+}

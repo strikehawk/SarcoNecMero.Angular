@@ -1,0 +1,17 @@
+<md-toolbar class="site-operations">
+    <div class="md-toolbar-tools">
+        <span>Opérations archéologiques</span>
+    </div>
+</md-toolbar>
+<md-list class="md-dense site-operations-list">
+    <md-list-item ng-repeat="op in vm.operations" ng-click="vm.goToOperation(op.id)" class="noright">
+        <p>{{op.localisation}}</p>
+        <md-button class="md-icon-button" aria-label="Centrer sur la localisation"
+                   ng-click="vm.centerOnSite({x: site.x, y: site.y})">
+            <img src="assets/img/ic_center_focus_strong_black_24dp.png">
+            <md-tooltip>
+                Centrer sur la localisation
+            </md-tooltip>
+        </md-button>
+    </md-list-item>
+</md-list>

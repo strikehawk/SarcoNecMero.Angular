@@ -44,3 +44,7 @@
 .site-page .site-reference, .site-page .site-header-edition md-input-container.site-reference {
     width: 200px;
 }
+
+.site-page site-operations {
+    margin-top: 10px;
+}

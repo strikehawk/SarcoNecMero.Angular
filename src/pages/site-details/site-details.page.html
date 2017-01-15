@@ -10,7 +10,8 @@
             <div>{{vm.site.localisation}}</div>
         </div>
 
-        <site-localisation class="md-block" site="vm.site" allow-edition="false" event-block="vm.eventBlock"></site-localisation>
+        <site-localisation class="md-block" site="vm.site" allow-edition="false"
+                           event-block="vm.eventBlock"></site-localisation>
 
         <div>
             <md-button md-no-ink class="md-primary" ng-click="vm.edit()">Editer</md-button>
@@ -18,16 +19,19 @@
     </md-content>
     <md-content layout="column" flex>
         <md-tabs flex>
-            <md-tab id="localisation">
+            <md-tab id="localisation" flex>
                 <md-tab-label>Localisation</md-tab-label>
                 <md-tab-body>
-                    <site-ops-map site="vm.site" event-block="vm.eventBlock" layout-padding=""></site-ops-map>
+                    <md-panel layout-padding="">
+                        <site-ops-map site="vm.site" event-block="vm.eventBlock"></site-ops-map>
+                        <site-operations site-id="vm.siteId" event-block="vm.eventBlock"></site-operations>
+                    </md-panel>
                 </md-tab-body>
             </md-tab>
             <md-tab id="sarcophages">
                 <md-tab-label>Sarcophages</md-tab-label>
                 <md-tab-body>
-                    <panneaux-site-list site-id="vm.site.id"></panneaux-site-list>
+                    <panneaux-site-list site-id="vm.siteId"></panneaux-site-list>
                 </md-tab-body>
             </md-tab>
         </md-tabs>

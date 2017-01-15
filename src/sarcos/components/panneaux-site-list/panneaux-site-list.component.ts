@@ -9,19 +9,7 @@ module snm.sarcos.components {
     class Controller {
         static $inject: string[] = ["$scope", "$log", "$http", "$mdToast", "userSettings"];
 
-        private _siteId: number;
-
-        public get siteId(): number {
-            return this._siteId;
-        }
-
-        public set siteId(value: number) {
-            this._siteId = value;
-
-            if (typeof value === "number") {
-                this._getSitesData(value);
-            }
-        }
+        public siteId: number;
 
         private _illustrations: snm.sarcos.IllustrationPanneauSummary[];
 
@@ -40,6 +28,9 @@ module snm.sarcos.components {
                     private userSettings: snm.services.settings.UserSettings) {
         }
 
+        public $onInit(): void {
+            this._getSitesData(this.siteId);
+        };
 
         private _getSitesData(siteId: number): void {
             this.$http.get<snm.sarcos.IllustrationPanneauSummary[]>("api/sarcos/" + siteId + "/panneaux/illus/summary")
