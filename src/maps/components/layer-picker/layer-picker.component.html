@@ -1,0 +1,12 @@
+<div class="layer-picker">
+    <div class="tile-container">
+        <div class="layer-picker-tile" ng-repeat="def in vm.map.baseLayers" layout="column">
+            <md-button ng-click="vm.useLayer(def)" aria-label="{{def.label}}">
+                <img ng-src="{{def.imgUrl}}">
+                <md-tooltip md-direction="top">
+                    {{def.label}}
+                </md-tooltip>
+            </md-button>
+        </div>
+    </div>
+</div>

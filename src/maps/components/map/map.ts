@@ -7,6 +7,12 @@
 /// <reference path="../../../services/user-settings.ts" />
 
 module snm.maps.components {
+    export interface BaseLayerDefinition {
+        label: string;
+        imgUrl: string;
+        layer: ol.layer.Layer
+    }
+
     export class Map {
         public static loadProjections(): void {
             proj4.defs("EPSG:2154", "+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -17,6 +23,29 @@ module snm.maps.components {
         private _map: ol.Map;
         private _viewManager: snm.maps.components.ViewManager;
         private _eventBlock: adnw.common.EventBlock;
+
+        public get targetElement(): Element {
+            return this._map.getTargetElement();
+        }
+
+        private _baseLayers: BaseLayerDefinition[];
+
+        public get baseLayers(): BaseLayerDefinition[] {
+            return this._baseLayers;
+        }
+
+        private _baseLayer: BaseLayerDefinition;
+
+        public get baseLayer(): BaseLayerDefinition {
+            return this._baseLayer;
+        }
+
+        public set baseLayer(value: BaseLayerDefinition) {
+            this._baseLayer = value;
+            this._baseLayers.forEach((layerDef: snm.maps.components.BaseLayerDefinition) => {
+                layerDef.layer.setVisible(layerDef === this._baseLayer);
+            });
+        }
 
         public get center(): [number, number] {
             return this._viewManager.center;
@@ -55,6 +84,7 @@ module snm.maps.components {
 
         constructor(elementId: string, private userSettings: snm.services.settings.UserSettings) {
             Map.loadProjections();
+            this._baseLayers = this._createBaseLayers();
             this._map = this._createMap(elementId);
             this._eventBlock = new adnw.common.EventBlock();
             this._viewManager = new snm.maps.components.ViewManager(this, this._map, this._eventBlock);
@@ -133,6 +163,31 @@ module snm.maps.components {
             this._eventBlock.un(event, callback);
         }
 
+        private _createBaseLayers(): BaseLayerDefinition[] {
+            let result: BaseLayerDefinition[] = [];
+            let def: BaseLayerDefinition;
+
+            def = {
+                label: "Open Street Map",
+                imgUrl: "assets/img/osm.png",
+                layer: new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            };
+            result.push(def);
+
+            def = {
+                label: "Carte de Cassini",
+                imgUrl: "assets/img/cassini.png",
+                layer: new ol.layer.Tile({
+                    source: this._getCassiniWmtsSource()
+                })
+            };
+            result.push(def);
+
+            return result;
+        }
+
         private _createMap(elementId: string): ol.Map {
             let center: [number, number];
 
@@ -165,11 +220,7 @@ module snm.maps.components {
                 zoom: typeof zoom === "number" ? zoom : 1
             });
 
-            let layers: ol.layer.Base[] = [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                })
-            ];
+            let layers: ol.layer.Base[] = this._baseLayers.map((def: BaseLayerDefinition) => def.layer);
 
             let map: ol.Map = new ol.Map({
                 target: elementId,
@@ -183,7 +234,20 @@ module snm.maps.components {
                 map.updateSize();
             });
 
+            this.baseLayer = this._baseLayers[0];
+
             return map;
+        }
+
+        private _getCassiniWmtsSource(): ol.source.XYZ {
+            let source: ol.source.XYZ = new ol.source.XYZ({
+                url: "http://georeferencer-{0-1}.tileserver.com/a0b83ea87a4e6c2f35bb30d105ac787271a1f7a8/map/2Uu3fCXb8HK9fjs2vADCAZ/201601190350-6lA3T0/polynomial/{z}/{x}/{y}.png",
+                minZoom: 0,
+                maxZoom: 13,
+                tilePixelRatio: 1
+            });
+
+            return source;
         }
     }
 }

@@ -1,0 +1,22 @@
+.layer-picker {
+    max-width: 200px;
+    height: 76px;
+}
+
+.layer-picker .tile-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.layer-picker .layer-picker-tile  {
+    background: white;
+    padding: 4px;
+    margin-right: 5px;
+}
+
+.layer-picker .layer-picker-tile .md-button {
+    margin: 0;
+    padding: 0;
+    min-width: inherit;
+    line-height: inherit;
+}

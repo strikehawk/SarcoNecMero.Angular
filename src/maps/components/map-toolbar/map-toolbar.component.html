@@ -6,6 +6,12 @@
                 Centrer la carte sur le point de départ
             </md-tooltip>
         </md-button>
+        <md-button class="md-icon-button" id="layer-picker" aria-label="Choix du fond de carte" ng-click="vm.openLayerPicker()">
+            <img ng-src="{{vm.map.baseLayer.imgUrl}}" style="width:24px;height:24px;">
+            <md-tooltip md-direction="top">
+                {{vm.map.baseLayer.label}}. Cliquez pour modifier le fond de carte
+            </md-tooltip>
+        </md-button>
         <span>
             X: {{vm.map.cursor[0] | number:0}} Y: {{vm.map.cursor[1] | number:0}}
             <md-tooltip md-direction="top">

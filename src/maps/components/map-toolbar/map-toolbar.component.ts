@@ -1,10 +1,12 @@
 /// <reference path="../../../../typings/angular/angular.d.ts" />
+/// <reference path="../../../../typings/angular-material/angular-material.d.ts" />
 /// <reference path="../../../services/user-settings.ts" />
 /// <reference path="../map/map.ts" />
+/// <reference path="../layer-picker/layer-picker.component.ts" />
 
 module snm.maps.components {
     class Controller {
-        static $inject: string[] = ["$scope", "userSettings"];
+        static $inject: string[] = ["$scope", "$mdPanel", "userSettings"];
 
         private _showScale: boolean = true;
 
@@ -16,18 +18,7 @@ module snm.maps.components {
             this._showScale = value;
         }
 
-        private _map: snm.maps.components.Map;
-
-        public get map(): snm.maps.components.Map {
-            return this._map;
-        }
-
-        public set map(value: snm.maps.components.Map) {
-            this._map = value;
-            if (value) {
-                this._registerToMapEvents(value);
-            }
-        }
+        public map: snm.maps.components.Map;
 
         public get showHome(): boolean {
             return !!this.goToHome;
@@ -36,11 +27,43 @@ module snm.maps.components {
         public goToHome: () => void;
 
         constructor(private $scope: ng.IScope,
+                    private $mdPanel: angular.material.MDPanelService,
                     private userSettings: snm.services.settings.UserSettings) {
+        }
+
+        public $onInit(): void {
+            this._registerToMapEvents(this.map);
         }
 
         public toggleScale(): void {
             this._showScale = !this._showScale;
+        }
+
+        public openLayerPicker(): void {
+            let panelPosition: angular.material.MDPanelPosition = this.$mdPanel.newPanelPosition()
+                .relativeTo("#layer-picker")
+                .addPanelPosition(this.$mdPanel.xPosition.ALIGN_START, this.$mdPanel.yPosition.ABOVE);
+
+            let config: angular.material.MDPanelConfig = {
+                attachTo: angular.element(document.body),
+                templateUrl: "/app/maps/components/layer-picker/layer-picker.component.html",
+                controller: snm.maps.components.LayerPickerController,
+                controllerAs: "vm",
+                position: panelPosition,
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                focusOnOpen: true,
+                locals: {
+                    map: this.map
+                }
+            };
+
+            let panelRef: angular.material.MDPanelRef;
+
+            this.$mdPanel.open(config)
+                .then(function(result: angular.material.MDPanelRef) {
+                    panelRef = result;
+                });
         }
 
         private _registerToMapEvents(map: snm.maps.components.Map): void {

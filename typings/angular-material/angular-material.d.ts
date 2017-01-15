@@ -204,4 +204,92 @@ declare namespace angular.material {
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
     }
+
+    interface MDPanelXPosition {
+        CENTER: string;
+        ALIGN_START: string;
+        ALIGN_END: string;
+        OFFSET_START: string;
+        OFFSET_END: string;
+    }
+
+    interface MDPanelYPosition {
+        CENTER: string;
+        ALIGN_TOPS: string;
+        ALIGN_BOTTOMS: string;
+        ABOVE: string;
+        BOTTOM: string;
+    }
+
+    interface MDPanelPosition {
+        absolute(): MDPanelPosition;
+        relativeTo(element: string|Element|JQuery): MDPanelPosition;
+        top(top?: string): MDPanelPosition;
+        bottom(bottom?: string): MDPanelPosition;
+        start(start?: string): MDPanelPosition;
+        end(end?: string): MDPanelPosition;
+        left(left?: string): MDPanelPosition;
+        right(right?: string): MDPanelPosition;
+        centerHorizontally(): MDPanelPosition;
+        centerVertically(): MDPanelPosition;
+        center(): MDPanelPosition;
+        addPanelPosition(xPosition: string, yPosition: string): MDPanelPosition;
+        withOffsetX(offsetX: string): MDPanelPosition;
+        withOffsetY(offsetY: string): MDPanelPosition;
+    }
+
+    interface MDPanelAnimation {
+        closeTo(closeClass: string): MDPanelAnimation;
+        defaultAnimation(animation: string): MDPanelAnimation;
+        targetEvent(event: ng.IAngularEvent): MDPanelAnimation;
+    }
+
+    interface MDPanelRef {
+        detach(): angular.IPromise<any>;
+        show(): angular.IPromise<any>;
+        hide(): angular.IPromise<any>;
+        destroy(): void;
+        addClass(newClass: string, toElement: boolean);
+        removeClass(oldClass: string, fromElement: boolean);
+        toggleClass(toggleClass: string, onElement: boolean);
+        updatePosition(position: MDPanelPosition): void;
+    }
+
+    interface MDPanelConfig {
+        id?: string;
+        template?: string;
+        templateUrl?: string;
+        controller?: string|Function;
+        controllerAs?: string;
+        bindToController?: boolean;
+        locals?: Object;
+        resolve?: Object;
+        attachTo?: string|Element|JQuery;
+        propagateContainerEvents?: boolean;
+        panelClass?: string;
+        zIndex?: number;
+        position?: MDPanelPosition;
+        clickOutsideToClose?: boolean;
+        escapeToClose?: boolean;
+        trapFocus?: boolean;
+        focusOnOpen?: boolean;
+        fullScreen?: boolean;
+        animation?: MDPanelAnimation;
+        hasBackdrop?: boolean;
+        disableParentScroll?: boolean;
+        onDomAdded?: Function;
+        onOpenComplete?: Function;
+        onRemoving?: Function;
+        onDomRemoved?: Function;
+        origin?: string|Element|JQuery;
+    }
+
+    interface MDPanelService {
+        xPosition: MDPanelXPosition;
+        yPosition: MDPanelYPosition;
+        create(config?: MDPanelConfig): MDPanelRef;
+        open(config?: MDPanelConfig): angular.IPromise<MDPanelRef>;
+        newPanelPosition(): MDPanelPosition;
+        newPanelAnimation(): MDPanelAnimation;
+    }
 }
